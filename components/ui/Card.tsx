@@ -1,12 +1,12 @@
 import { ReactNode } from "react";
 
-interface CardProps {
+interface Props {
   children: ReactNode;
 }
 
-export default function Card({ children }: CardProps) {
+export default function Card({ children }: Props) {
   return (
-    <div className="rounded-2xl border border-zinc-800 bg-zinc-900 p-8 transition hover:border-blue-500 hover:shadow-2xl">
+    <div className="rounded-3xl border border-zinc-800 bg-zinc-900/60 p-8 backdrop-blur-xl transition-all duration-300 hover:border-blue-500 hover:-translate-y-2">
       {children}
     </div>
   );

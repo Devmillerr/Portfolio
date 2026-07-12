@@ -1,26 +1,159 @@
 @import "tailwindcss";
 
+/* ===========================
+   VARIABLES
+=========================== */
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #09090b;
+  --foreground: #fafafa;
+  --card: #18181b;
+  --border: #27272a;
+  --primary: #3b82f6;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+/* ===========================
+   HTML
+=========================== */
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  overflow-x: hidden;
+}
+
+/* ===========================
+   SELECCIÓN
+=========================== */
+
+::selection {
+  background: #2563eb;
+  color: white;
+}
+
+/* ===========================
+   SCROLLBAR
+=========================== */
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #09090b;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #27272a;
+  border-radius: 999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #3f3f46;
+}
+
+/* Firefox */
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #3f3f46 #09090b;
+}
+
+/* ===========================
+   ANIMACIONES
+=========================== */
+
+@keyframes float {
+
+  0% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
+
+  100% {
+    transform: translateY(0px);
+  }
+
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+@keyframes glow {
+
+  0% {
+    opacity: .4;
+  }
+
+  50% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: .4;
+  }
+
+}
+
+.animate-glow {
+  animation: glow 3s infinite;
+}
+
+/* ===========================
+   GRID BACKGROUND
+=========================== */
+
+.grid-bg {
+  background-image:
+    linear-gradient(rgba(255,255,255,.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.04) 1px, transparent 1px);
+
+  background-size: 40px 40px;
+}
+
+/* ===========================
+   GLASS
+=========================== */
+
+.glass {
+  background: rgba(24,24,27,.55);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255,255,255,.06);
+}
+
+/* ===========================
+   BOTONES
+=========================== */
+
+.btn-primary {
+  transition: .3s;
+}
+
+.btn-primary:hover {
+  transform: translateY(-4px);
+}
+
+/* ===========================
+   LINKS
+=========================== */
+
+a {
+  transition: .3s;
+  text-decoration: none;
+}
+
+/* ===========================
+   IMÁGENES
+=========================== */
+
+img {
+  user-select: none;
 }

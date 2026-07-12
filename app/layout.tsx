@@ -1,20 +1,30 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Inter } from "next/font/google";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const inter = Inter({
   subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+  display: "swap",
 });
 
 export const metadata: Metadata = {
-  title: "Miler Castro | Portfolio",
-  description: "Software Implementation Analyst | Backend Developer | QA Tester",
+  title: "Miler Castro | Software Implementation Engineer",
+  description:
+    "Portafolio profesional de Miler Castro. Software Implementation Engineer, Backend Developer y QA Engineer especializado en transformación digital, implementación de software y desarrollo Backend con NestJS, TypeScript y PostgreSQL.",
+  keywords: [
+    "Miler Castro",
+    "Backend Developer",
+    "Software Implementation Engineer",
+    "QA Engineer",
+    "NestJS",
+    "Node.js",
+    "TypeScript",
+    "PostgreSQL",
+    "Transformación Digital",
+    "Digiproy",
+    "Camposol",
+  ],
+  authors: [{ name: "Miler Castro" }],
 };
 
 export default function RootLayout({
@@ -23,11 +33,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="es"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
-    >
-      <body className="min-h-full flex flex-col">{children}</body>
+    <html lang="es" className="scroll-smooth">
+      <body
+        className={`${inter.className} bg-zinc-950 text-white antialiased`}
+      >
+        {children}
+      </body>
     </html>
   );
 }

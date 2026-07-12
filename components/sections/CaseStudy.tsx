@@ -1,96 +1,151 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { TriangleAlert, Lightbulb, TrendingUp } from "lucide-react";
+import {
+  AlertTriangle,
+  Lightbulb,
+  TrendingUp,
+  CheckCircle2,
+} from "lucide-react";
+import SectionTitle from "@/components/ui/SectionTitle";
+
+const results = [
+  "Aproximadamente 40 cartillas operativas digitalizadas.",
+  "Más de 50 colaboradores utilizando las soluciones.",
+  "Procesos implementados en Producción, Calidad y Operaciones.",
+  "Reducción del tiempo empleado en el llenado manual.",
+  "Edición inmediata de registros sin reemplazar formatos físicos.",
+  "Mayor trazabilidad y disponibilidad de la información.",
+];
 
 export default function CaseStudy() {
   return (
     <section
       id="case-study"
-      className="bg-zinc-900 py-24 text-white"
+      className="bg-[#0c0f14] py-28 text-white"
     >
-      <div className="mx-auto max-w-6xl px-6">
+      <div className="mx-auto max-w-7xl px-6">
+        <SectionTitle
+          subtitle="CASO DE ÉXITO"
+          title="Digitalización de procesos operativos"
+        />
 
-        <motion.h2
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="mb-16 text-center text-5xl font-bold"
-        >
-          Caso de Éxito
-        </motion.h2>
+        <div className="grid gap-6 lg:grid-cols-3">
+          {/* Problema */}
 
-        <div className="space-y-8">
-
-          <motion.div
-            whileHover={{ scale: 1.02 }}
-            className="rounded-3xl border border-red-500/20 bg-zinc-950 p-8"
+          <motion.article
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.25 }}
+            className="rounded-3xl border border-red-500/15 bg-zinc-950/60 p-8"
           >
-            <div className="mb-4 flex items-center gap-3">
-              <TriangleAlert className="text-red-400" />
-              <h3 className="text-2xl font-bold">
-                Problema
-              </h3>
+            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-red-500/10 text-red-400">
+              <AlertTriangle size={24} />
             </div>
 
-            <p className="text-zinc-300 leading-8">
-              Los registros de producción se realizaban mediante formatos físicos.
-              Esto ocasionaba tiempos muertos, errores de escritura, formatos
-              deteriorados y poca trazabilidad de la información.
+            <p className="mt-7 text-xs font-semibold uppercase tracking-[0.22em] text-red-400">
+              El reto
             </p>
 
-          </motion.div>
+            <h3 className="mt-3 text-2xl font-bold">
+              Registros físicos lentos y difíciles de controlar
+            </h3>
 
-          <motion.div
-            whileHover={{ scale: 1.02 }}
-            className="rounded-3xl border border-blue-500/20 bg-zinc-950 p-8"
+            <p className="mt-5 leading-8 text-zinc-400">
+              Los colaboradores llenaban formatos manualmente. Cuando un
+              documento se deterioraba o contenía errores, debía descartarse y
+              completarse nuevamente, generando retrasos y menor trazabilidad.
+            </p>
+          </motion.article>
+
+          {/* Solución */}
+
+          <motion.article
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.25 }}
+            transition={{ delay: 0.1 }}
+            className="rounded-3xl border border-blue-500/20 bg-zinc-950/60 p-8"
           >
-            <div className="mb-4 flex items-center gap-3">
-              <Lightbulb className="text-blue-400" />
-              <h3 className="text-2xl font-bold">
-                Solución
-              </h3>
+            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-blue-500/10 text-blue-400">
+              <Lightbulb size={24} />
             </div>
 
-            <p className="text-zinc-300 leading-8">
-              Analicé el proceso, diseñé aproximadamente 40 cartillas digitales
-              en Digiproy, realicé pruebas funcionales (QA), coordiné el
-              despliegue y brindé soporte durante la implementación.
+            <p className="mt-7 text-xs font-semibold uppercase tracking-[0.22em] text-blue-400">
+              La solución
             </p>
 
-          </motion.div>
+            <h3 className="mt-3 text-2xl font-bold">
+              Implementación de cartillas digitales
+            </h3>
 
-          <motion.div
-            whileHover={{ scale: 1.02 }}
-            className="rounded-3xl border border-green-500/20 bg-zinc-950 p-8"
+            <p className="mt-5 leading-8 text-zinc-400">
+              Analicé los procesos, levanté requerimientos y configuré
+              formularios en Digiproy con validaciones, reglas de negocio y
+              cálculos. También realicé pruebas QA en PDA, coordiné los pases a
+              producción y brindé soporte a los usuarios.
+            </p>
+          </motion.article>
+
+          {/* Impacto */}
+
+          <motion.article
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.25 }}
+            transition={{ delay: 0.2 }}
+            className="rounded-3xl border border-emerald-500/20 bg-zinc-950/60 p-8"
           >
-            <div className="mb-4 flex items-center gap-3">
-              <TrendingUp className="text-green-400" />
-              <h3 className="text-2xl font-bold">
-                Resultado
-              </h3>
+            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-emerald-500/10 text-emerald-400">
+              <TrendingUp size={24} />
             </div>
 
-            <ul className="space-y-3 text-zinc-300">
+            <p className="mt-7 text-xs font-semibold uppercase tracking-[0.22em] text-emerald-400">
+              El impacto
+            </p>
 
-              <li>✅ 40 cartillas digitalizadas.</li>
+            <h3 className="mt-3 text-2xl font-bold">
+              Mayor eficiencia y calidad de información
+            </h3>
 
-              <li>✅ Más de 50 colaboradores utilizando el sistema diariamente.</li>
-
-              <li>✅ Eliminación del uso de papel.</li>
-
-              <li>✅ Menor tiempo de registro.</li>
-
-              <li>✅ Mejor trazabilidad de la información.</li>
-
-              <li>✅ Reducción de errores en el llenado de registros.</li>
-
-            </ul>
-
-          </motion.div>
-
+            <p className="mt-5 leading-8 text-zinc-400">
+              La captura digital permitió editar registros, reducir tareas
+              repetitivas y disponer de información más organizada para el
+              seguimiento operativo.
+            </p>
+          </motion.article>
         </div>
 
+        {/* Resultados */}
+
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
+          className="mt-8 rounded-3xl border border-white/10 bg-white/[0.025] p-8 md:p-10"
+        >
+          <h3 className="text-2xl font-bold">
+            Resultados principales
+          </h3>
+
+          <div className="mt-8 grid gap-5 md:grid-cols-2">
+            {results.map((result) => (
+              <div
+                key={result}
+                className="flex items-start gap-3"
+              >
+                <CheckCircle2
+                  size={20}
+                  className="mt-1 shrink-0 text-emerald-400"
+                />
+
+                <p className="leading-7 text-zinc-300">
+                  {result}
+                </p>
+              </div>
+            ))}
+          </div>
+        </motion.div>
       </div>
     </section>
   );
