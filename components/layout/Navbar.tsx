@@ -1,132 +1,157 @@
-"use client";
-
-import { useEffect, useState } from "react";
-import { Menu, X } from "lucide-react";
-import Button from "@/components/ui/Button";
+import Link from "next/link";
+import { Download, Menu, X } from "lucide-react";
 
 const links = [
-  { name: "Inicio", href: "hero" },
-  { name: "Sobre mí", href: "about" },
-  { name: "Experiencia", href: "experience" },
-  { name: "Proyectos", href: "projects" },
-  { name: "Contacto", href: "contact" },
+  {
+    label: "Inicio",
+    href: "/#hero",
+  },
+  {
+    label: "Perfil",
+    href: "/#profile",
+  },
+  {
+    label: "Experiencia",
+    href: "/#experience",
+  },
+  {
+    label: "Caso de estudio",
+    href: "/#case-study",
+  },
+  {
+    label: "Proyectos",
+    href: "/#projects",
+  },
+  {
+    label: "Contacto",
+    href: "/#contact",
+  },
 ];
 
 export default function Navbar() {
-  const [scroll, setScroll] = useState(false);
-  const [open, setOpen] = useState(false);
-
-  useEffect(() => {
-    const onScroll = () => {
-      setScroll(window.scrollY > 30);
-    };
-
-    window.addEventListener("scroll", onScroll);
-
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
-  const goTo = (id: string) => {
-    const section = document.getElementById(id);
-
-    if (!section) return;
-
-    section.scrollIntoView({
-      behavior: "smooth",
-      block: "start",
-    });
-
-    setOpen(false);
-  };
-
   return (
-    <header
-      className={`fixed left-0 top-0 z-50 w-full transition-all duration-500 ${
-        scroll
-          ? "border-b border-zinc-800 bg-zinc-950/80 backdrop-blur-xl"
-          : "bg-transparent"
-      }`}
-    >
-      <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-6">
-
-        {/* Logo */}
-
-        <button
-          onClick={() => goTo("hero")}
-          className="text-3xl font-black tracking-tight text-white"
+    <header className="fixed inset-x-0 top-0 z-[9999] border-b border-white/[0.08] bg-[#08090c] text-white">
+      <div className="mx-auto flex h-[76px] w-full max-w-[1100px] items-center justify-between px-5 lg:px-0">
+        {/* Identidad */}
+        <Link
+          href="/#hero"
+          className="flex min-w-0 items-center gap-3"
         >
-          Miler<span className="text-blue-400">.</span>
-        </button>
+          <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-white/10 bg-white/[0.04] text-sm font-black">
+            MC
+          </span>
 
-        {/* Desktop */}
+          <span className="min-w-0">
+            <span className="block truncate text-base font-bold">
+              Miler Castro
+            </span>
 
-        <nav className="hidden items-center gap-10 md:flex">
+            <span className="hidden truncate text-xs text-zinc-500 sm:block">
+              Software Implementation Analyst
+            </span>
+          </span>
+        </Link>
 
+        {/* Navegación de escritorio */}
+        <nav className="hidden items-center gap-7 lg:flex">
           {links.map((item) => (
-            <button
-              key={item.name}
-              onClick={() => goTo(item.href)}
-              className="text-zinc-300 transition hover:text-white"
+            <Link
+              key={item.label}
+              href={item.href}
+              className="text-sm font-medium text-zinc-400 transition hover:text-white"
             >
-              {item.name}
-            </button>
+              {item.label}
+            </Link>
           ))}
-
         </nav>
 
-        {/* Desktop Button */}
-
-        <div className="hidden md:block">
-          <Button>
-            Descargar CV
-          </Button>
-        </div>
-
-        {/* Mobile */}
-
-        <button
-          onClick={() => setOpen(!open)}
-          className="text-white md:hidden"
+        {/* Descargar CV en escritorio */}
+        <a
+          href="/cv-miler-castro.pdf"
+          download
+          className="hidden h-11 items-center gap-2 rounded-xl border border-white/10 bg-white/[0.03] px-5 text-sm font-semibold text-white transition hover:border-white/20 hover:bg-white/[0.07] lg:inline-flex"
         >
-          {open ? <X size={30} /> : <Menu size={30} />}
-        </button>
+          <Download size={16} />
+          Descargar CV
+        </a>
 
+        {/* Botón hamburguesa móvil */}
+        <a
+          href="#mobile-menu"
+          aria-label="Abrir menú"
+          className="flex h-11 w-11 items-center justify-center rounded-xl border border-white/10 bg-white/[0.04] text-white transition active:scale-95 lg:hidden"
+        >
+          <Menu size={23} />
+        </a>
       </div>
 
-      {/* Mobile Menu */}
+      {/* Menú móvil controlado con :target */}
+      <div
+        id="mobile-menu"
+        className="fixed inset-0 z-[10000] hidden overflow-y-auto bg-[#08090c] target:block lg:!hidden"
+      >
+        {/* Encabezado del menú */}
+        <div className="mx-auto flex h-[76px] w-full max-w-[1100px] items-center justify-between border-b border-white/[0.08] px-5">
+          <Link
+            href="/#hero"
+            className="flex min-w-0 items-center gap-3"
+          >
+            <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-white/10 bg-white/[0.04] text-sm font-black">
+              MC
+            </span>
 
-      {open && (
+            <span className="block truncate text-base font-bold text-white">
+              Miler Castro
+            </span>
+          </Link>
 
-        <div className="border-t border-zinc-800 bg-zinc-950 md:hidden">
-
-          <div className="flex flex-col p-6">
-
-            {links.map((item) => (
-
-              <button
-                key={item.name}
-                onClick={() => goTo(item.href)}
-                className="py-4 text-left text-lg text-zinc-300 transition hover:text-white"
-              >
-                {item.name}
-              </button>
-
-            ))}
-
-            <div className="mt-6">
-
-              <Button className="w-full">
-                Descargar CV
-              </Button>
-
-            </div>
-
-          </div>
-
+          <a
+            href="#hero"
+            aria-label="Cerrar menú"
+            className="flex h-11 w-11 items-center justify-center rounded-xl border border-white/10 bg-white/[0.04] text-white transition active:scale-95"
+          >
+            <X size={23} />
+          </a>
         </div>
 
-      )}
+        {/* Contenido del menú */}
+        <div className="mx-auto flex min-h-[calc(100dvh-76px)] w-full max-w-[1100px] flex-col px-5 py-5">
+          <nav className="flex flex-col">
+            {links.map((item, index) => (
+              <Link
+                key={item.label}
+                href={item.href}
+                className="flex items-center justify-between border-b border-white/[0.08] py-5 text-lg font-semibold text-zinc-200 transition active:bg-white/[0.03]"
+              >
+                <span>{item.label}</span>
 
+                <span className="text-xs font-normal text-zinc-700">
+                  0{index + 1}
+                </span>
+              </Link>
+            ))}
+          </nav>
+
+          <a
+            href="/cv-miler-castro.pdf"
+            download
+            className="mt-7 inline-flex h-12 items-center justify-center gap-2 rounded-xl bg-white px-5 text-sm font-bold text-zinc-950"
+          >
+            <Download size={17} />
+            Descargar CV
+          </a>
+
+          <div className="mt-auto border-t border-white/[0.08] pt-5">
+            <p className="text-xs text-zinc-600">
+              Software Implementation Analyst
+            </p>
+
+            <p className="mt-1 text-sm text-zinc-400">
+              Chimbote, Perú
+            </p>
+          </div>
+        </div>
+      </div>
     </header>
   );
 }

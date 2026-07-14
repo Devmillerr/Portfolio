@@ -8,23 +8,9 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Miler Castro | Software Implementation Engineer",
+  title: "Miler Castro | Software Implementation Analyst",
   description:
-    "Portafolio profesional de Miler Castro. Software Implementation Engineer, Backend Developer y QA Engineer especializado en transformación digital, implementación de software y desarrollo Backend con NestJS, TypeScript y PostgreSQL.",
-  keywords: [
-    "Miler Castro",
-    "Backend Developer",
-    "Software Implementation Engineer",
-    "QA Engineer",
-    "NestJS",
-    "Node.js",
-    "TypeScript",
-    "PostgreSQL",
-    "Transformación Digital",
-    "Digiproy",
-    "Camposol",
-  ],
-  authors: [{ name: "Miler Castro" }],
+    "Portafolio profesional de Miler Castro, especializado en implementación de software, QA funcional y desarrollo Backend.",
 };
 
 export default function RootLayout({
@@ -33,9 +19,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="es" className="scroll-smooth">
+    <html lang="es" suppressHydrationWarning>
       <body
-        className={`${inter.className} bg-zinc-950 text-white antialiased`}
+        suppressHydrationWarning
+        className={`${inter.className} bg-[#08090c] text-white antialiased`}
       >
         {children}
       </body>

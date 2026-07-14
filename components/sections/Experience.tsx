@@ -1,213 +1,223 @@
 "use client";
 
+import Link from "next/link";
 import { motion } from "framer-motion";
 import {
-  Building2,
+  ArrowUpRight,
   CalendarDays,
-  Code2,
-  Database,
+  CheckCircle2,
   Rocket,
-  TestTube2,
 } from "lucide-react";
-import SectionTitle from "@/components/ui/SectionTitle";
 
-const experiences = [
-  {
-    company: "Camposol S.A.",
-    position: "Software Implementation Analyst | QA Tester",
-    period: "Septiembre 2024 — Actualidad",
-    description:
-      "Implementación y validación de soluciones digitales para procesos operativos de Producción, Calidad y Operaciones.",
-    achievements: [
-      "Digitalización de aproximadamente 40 cartillas operativas mediante Digiproy.",
-      "Soluciones utilizadas por más de 50 colaboradores.",
-      "Levantamiento y análisis de requerimientos con usuarios de negocio.",
-      "Configuración de reglas, validaciones, cálculos y controles de captura.",
-      "Ejecución de pruebas funcionales en ambiente QA y dispositivos PDA.",
-      "Coordinación de pases a producción, accesos y sincronización de información.",
-      "Capacitación, soporte funcional y seguimiento de incidencias.",
-    ],
-    technologies: [
-      "Digiproy",
-      "QA Testing",
-      "PDA",
-      "Análisis funcional",
-      "Implementación",
-      "Soporte",
-    ],
-    icon: Rocket,
-  },
-  {
-    company: "I.E. Inmaculada de la Merced",
-    position: "Backend Developer — Prácticas",
-    period: "Julio 2022 — Enero 2024",
-    description:
-      "Desarrollo de servicios Backend para la gestión de información institucional utilizando una arquitectura modular.",
-    achievements: [
-      "Desarrollo de una API REST con NestJS, TypeScript y PostgreSQL.",
-      "Implementación de autenticación y autorización mediante JWT.",
-      "Creación de controladores, servicios, módulos y DTOs.",
-      "Validación de datos y organización de la lógica de negocio.",
-      "Generación automatizada de reportes PDF con pdfMake.",
-      "Modelado de base de datos y pruebas de endpoints mediante Postman.",
-    ],
-    technologies: [
-      "NestJS",
-      "TypeScript",
-      "Node.js",
-      "PostgreSQL",
-      "JWT",
-      "Postman",
-    ],
-    icon: Code2,
-  },
-];
+const currentExperience = {
+  company: "Camposol S.A.",
+  position: "Software Implementation Analyst · QA Tester",
+  period: "Septiembre 2024 — Actualidad",
+  description:
+    "Implementación y validación de soluciones digitales para procesos de Producción, Calidad y Operaciones.",
+  achievements: [
+    "Digitalización de aproximadamente 40 cartillas operativas.",
+    "Soluciones utilizadas por más de 50 colaboradores.",
+    "Pruebas funcionales en ambiente QA y equipos PDA.",
+  ],
+  technologies: [
+    "Digiproy",
+    "QA Testing",
+    "PDA",
+    "Análisis funcional",
+    "Implementación",
+    "Soporte",
+  ],
+};
 
 export default function Experience() {
   return (
     <section
       id="experience"
-      className="relative overflow-hidden bg-[#090b0f] py-28 text-white"
+      className="relative flex min-h-[calc(100vh-76px)] items-center overflow-hidden border-b border-white/[0.07] bg-[#090b0f] py-12 text-white"
     >
-      <div className="pointer-events-none absolute left-[-180px] top-32 h-[400px] w-[400px] rounded-full bg-blue-500/[0.05] blur-[130px]" />
-
-      <div className="relative z-10 mx-auto max-w-7xl px-6">
-        <SectionTitle
-          subtitle="TRAYECTORIA"
-          title="Experiencia profesional"
+      <div className="pointer-events-none absolute inset-0">
+        <motion.div
+          animate={{
+            x: [0, 28, 0],
+            y: [0, 16, 0],
+          }}
+          transition={{
+            duration: 17,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+          className="absolute left-[-180px] top-12 h-[350px] w-[350px] rounded-full bg-blue-500/[0.035] blur-[140px]"
         />
 
-        <div className="relative mx-auto max-w-5xl">
-          {/* Línea vertical */}
-          <div className="absolute bottom-0 left-5 top-0 hidden w-px bg-gradient-to-b from-blue-500 via-zinc-700 to-transparent md:block" />
+        <motion.div
+          animate={{
+            x: [0, -22, 0],
+            y: [0, -14, 0],
+          }}
+          transition={{
+            duration: 20,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+          className="absolute bottom-[-220px] right-[-160px] h-[360px] w-[360px] rounded-full bg-cyan-400/[0.018] blur-[150px]"
+        />
+      </div>
 
-          <div className="space-y-10">
-            {experiences.map((experience, index) => {
-              const Icon = experience.icon;
+      <div className="relative z-10 mx-auto w-full max-w-[1100px] px-6 lg:px-0">
+        <div className="grid items-end gap-6 pb-8 lg:grid-cols-[0.72fr_1.28fr]">
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.5 }}
+          >
+            <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-blue-300">
+              Experiencia destacada
+            </p>
 
-              return (
-                <motion.article
-                  key={experience.company}
-                  initial={{ opacity: 0, y: 35 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, amount: 0.2 }}
-                  transition={{
-                    duration: 0.55,
-                    delay: index * 0.12,
-                  }}
-                  className="relative md:pl-16"
-                >
-                  {/* Punto de la línea */}
-                  <div className="absolute left-0 top-7 hidden h-10 w-10 items-center justify-center rounded-full border border-blue-500/30 bg-[#090b0f] text-blue-400 shadow-[0_0_25px_rgba(59,130,246,0.2)] md:flex">
-                    <Icon size={19} />
-                  </div>
+            <h2 className="mt-3 text-3xl font-extrabold tracking-[-0.04em] text-white sm:text-4xl">
+              Posición actual
+            </h2>
+          </motion.div>
 
-                  <div className="rounded-[2rem] border border-white/10 bg-white/[0.025] p-7 transition duration-300 hover:border-white/20 md:p-10">
-                    <div className="flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between">
-                      <div>
-                        <div className="flex items-center gap-3">
-                          <Building2
-                            size={21}
-                            className="text-blue-400"
-                          />
-
-                          <p className="font-semibold text-blue-400">
-                            {experience.company}
-                          </p>
-                        </div>
-
-                        <h3 className="mt-4 text-2xl font-black tracking-tight text-white md:text-3xl">
-                          {experience.position}
-                        </h3>
-                      </div>
-
-                      <div className="inline-flex w-fit items-center gap-2 rounded-full border border-white/10 bg-zinc-950 px-4 py-2 text-sm text-zinc-400">
-                        <CalendarDays size={16} />
-                        {experience.period}
-                      </div>
-                    </div>
-
-                    <p className="mt-7 max-w-3xl text-base leading-8 text-zinc-400 md:text-lg">
-                      {experience.description}
-                    </p>
-
-                    <div className="mt-8 grid gap-4 md:grid-cols-2">
-                      {experience.achievements.map((achievement) => (
-                        <div
-                          key={achievement}
-                          className="flex items-start gap-3"
-                        >
-                          <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-blue-400" />
-
-                          <p className="leading-7 text-zinc-300">
-                            {achievement}
-                          </p>
-                        </div>
-                      ))}
-                    </div>
-
-                    <div className="mt-9 border-t border-white/10 pt-7">
-                      <p className="mb-4 text-xs font-semibold uppercase tracking-[0.22em] text-zinc-500">
-                        Tecnologías y competencias
-                      </p>
-
-                      <div className="flex flex-wrap gap-2">
-                        {experience.technologies.map((technology) => (
-                          <span
-                            key={technology}
-                            className="rounded-full border border-white/10 bg-zinc-950 px-3 py-1.5 text-xs font-medium text-zinc-300"
-                          >
-                            {technology}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
-                </motion.article>
-              );
-            })}
-          </div>
+          <motion.p
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.5, delay: 0.08 }}
+            className="max-w-2xl text-sm leading-7 text-zinc-400 sm:text-base"
+          >
+            Actualmente participo en iniciativas de implementación, validación
+            y soporte de soluciones digitales para procesos operativos.
+          </motion.p>
         </div>
 
-        {/* Resumen inferior */}
         <motion.div
-          initial={{ opacity: 0, y: 25 }}
+          initial={{ scaleX: 0 }}
+          whileInView={{ scaleX: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.85, ease: "easeOut" }}
+          className="h-px origin-left bg-gradient-to-r from-blue-500/60 via-white/[0.08] to-transparent"
+        />
+
+        <motion.article
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.6 }}
+          whileHover={{
+            backgroundColor: "rgba(255,255,255,0.018)",
+          }}
+          className="group relative overflow-hidden py-10"
+        >
+          <div className="pointer-events-none absolute inset-0 opacity-0 transition duration-500 group-hover:opacity-100">
+            <div className="absolute left-[18%] top-[-100px] h-60 w-60 rounded-full bg-blue-500/[0.06] blur-3xl" />
+          </div>
+
+          <div className="relative z-10 grid gap-10 lg:grid-cols-[0.95fr_1.05fr]">
+            <div>
+              <div className="flex items-start gap-4">
+                <motion.div
+                  whileHover={{
+                    rotate: -6,
+                    scale: 1.08,
+                  }}
+                  className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border border-white/[0.08] bg-white/[0.025] text-blue-400 transition group-hover:border-blue-400/30 group-hover:bg-blue-500/10"
+                >
+                  <Rocket size={21} />
+                </motion.div>
+
+                <div>
+                  <p className="text-lg font-semibold text-blue-400">
+                    {currentExperience.company}
+                  </p>
+
+                  <span className="mt-1 inline-flex items-center gap-2 text-xs text-emerald-400">
+                    <span className="relative flex h-2 w-2">
+                      <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-40" />
+                      <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400" />
+                    </span>
+                    Posición actual
+                  </span>
+                </div>
+              </div>
+
+              <h3 className="mt-6 max-w-xl text-2xl font-bold leading-tight tracking-[-0.025em] text-white sm:text-3xl">
+                {currentExperience.position}
+              </h3>
+
+              <div className="mt-4 inline-flex items-center gap-2 text-sm text-zinc-500">
+                <CalendarDays size={15} />
+                {currentExperience.period}
+              </div>
+
+              <p className="mt-5 max-w-xl text-sm leading-7 text-zinc-400 sm:text-base">
+                {currentExperience.description}
+              </p>
+            </div>
+
+            <div>
+              <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-zinc-600">
+                Principales resultados
+              </p>
+
+              <div className="mt-5 space-y-4">
+                {currentExperience.achievements.map((achievement) => (
+                  <div
+                    key={achievement}
+                    className="flex items-start gap-3"
+                  >
+                    <CheckCircle2
+                      size={16}
+                      className="mt-1 shrink-0 text-blue-400"
+                    />
+
+                    <p className="text-sm leading-7 text-zinc-300">
+                      {achievement}
+                    </p>
+                  </div>
+                ))}
+              </div>
+
+              <div className="mt-7 border-t border-white/[0.07] pt-6">
+                <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-zinc-600">
+                  Tecnologías y competencias
+                </p>
+
+                <div className="mt-4 flex flex-wrap gap-2">
+                  {currentExperience.technologies.map((technology) => (
+                    <span
+                      key={technology}
+                      className="rounded-full border border-white/[0.08] bg-white/[0.02] px-3 py-1.5 text-[11px] text-zinc-400"
+                    >
+                      {technology}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </motion.article>
+
+        <motion.div
+          initial={{ opacity: 0, y: 14 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="mx-auto mt-12 grid max-w-5xl gap-4 md:grid-cols-3"
+          transition={{ duration: 0.5, delay: 0.12 }}
+          className="flex items-center justify-between gap-4 border-t border-white/[0.08] pt-7"
         >
-          <div className="flex items-center gap-4 rounded-2xl border border-white/10 bg-white/[0.025] p-5">
-            <TestTube2 className="text-blue-400" />
+          <p className="text-sm text-zinc-500">
+            También cuento con experiencia previa en desarrollo Backend.
+          </p>
 
-            <div>
-              <p className="font-bold text-white">QA funcional</p>
-              <p className="text-sm text-zinc-500">
-                Validación antes del despliegue
-              </p>
-            </div>
-          </div>
-
-          <div className="flex items-center gap-4 rounded-2xl border border-white/10 bg-white/[0.025] p-5">
-            <Database className="text-blue-400" />
-
-            <div>
-              <p className="font-bold text-white">Backend</p>
-              <p className="text-sm text-zinc-500">
-                APIs, datos y lógica de negocio
-              </p>
-            </div>
-          </div>
-
-          <div className="flex items-center gap-4 rounded-2xl border border-white/10 bg-white/[0.025] p-5">
-            <Rocket className="text-blue-400" />
-
-            <div>
-              <p className="font-bold text-white">Implementación</p>
-              <p className="text-sm text-zinc-500">
-                Del requerimiento a producción
-              </p>
-            </div>
-          </div>
+          <Link
+            href="/experiencia"
+            className="inline-flex h-11 items-center gap-2 rounded-lg border border-white/[0.1] bg-white/[0.025] px-5 text-sm font-semibold text-white transition hover:-translate-y-0.5 hover:border-blue-400/40 hover:bg-blue-500/[0.07] hover:text-blue-200"
+          >
+            Ver trayectoria completa
+            <ArrowUpRight size={16} />
+          </Link>
         </motion.div>
       </div>
     </section>
