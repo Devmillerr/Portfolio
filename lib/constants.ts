@@ -62,12 +62,11 @@ export const technologies = [
 // CONTACTO
 // ==============================
 
-export const contact = {
-  email: "castrojordy378@gmail.com",
-
+export const siteConfig = {
+  role: "Software Implementation Analyst / Full-Stack Developer",
+  location: "Chimbote, Perú",
+  company: "Camposol S.A.",
   github: "https://github.com/TU-USUARIO",
-
-  linkedin: "https://linkedin.com/in/TU-USUARIO",
-
-  cv: "/cv-miler-castro.pdf",
+  linkedin: "https://www.linkedin.com/in/TU-USUARIO",
+  whatsapp: "https://wa.me/51TU_NUMERO",
 };

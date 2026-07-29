@@ -4,11 +4,10 @@ import Footer from "@/components/layout/Footer";
 import Hero from "@/components/hero/Hero";
 
 import Profile from "@/components/sections/Profile";
-import Experience from "@/components/sections/Experience";
 import CaseStudy from "@/components/sections/CaseStudy";
+import Experience from "@/components/sections/Experience";
 import Skills from "@/components/sections/Skills";
 import Projects from "@/components/sections/Projects";
-import Certifications from "@/components/sections/Certifications";
 import Contact from "@/components/sections/Contact";
 
 export default function Home() {
@@ -19,11 +18,10 @@ export default function Home() {
       <main>
         <Hero />
         <Profile />
-        <Experience />
         <CaseStudy />
+        <Experience />
         <Skills />
         <Projects />
-        <Certifications />
         <Contact />
       </main>
 
