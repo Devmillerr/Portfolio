@@ -1,14 +1,13 @@
-import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
+import Navbar from "@/components/layout/Navbar";
 
 import Hero from "@/components/hero/Hero";
 
-import Profile from "@/components/sections/Profile";
 import CaseStudy from "@/components/sections/CaseStudy";
-import Experience from "@/components/sections/Experience";
-import Skills from "@/components/sections/Skills";
-import Projects from "@/components/sections/Projects";
 import Contact from "@/components/sections/Contact";
+import Experience from "@/components/sections/Experience";
+import Profile from "@/components/sections/Profile";
+import Projects from "@/components/sections/Projects";
 
 export default function Home() {
   return (
@@ -20,7 +19,6 @@ export default function Home() {
         <Profile />
         <CaseStudy />
         <Experience />
-        <Skills />
         <Projects />
         <Contact />
       </main>

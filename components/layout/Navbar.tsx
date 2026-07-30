@@ -1,19 +1,15 @@
 "use client";
 
-import Link from "next/link";
 import {
   AnimatePresence,
   motion,
   useMotionValueEvent,
   useScroll,
 } from "framer-motion";
+import { ArrowUpRight, Download, Menu, X } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
 import { useEffect, useState } from "react";
-import {
-  ArrowUpRight,
-  Download,
-  Menu,
-  X,
-} from "lucide-react";
 
 const links = [
   { label: "Perfil", href: "/#profile" },
@@ -73,9 +69,17 @@ export default function Navbar() {
           aria-label="Ir al inicio"
           className="group flex min-w-0 items-center gap-3.5"
         >
-          <span className="relative flex h-10 w-10 shrink-0 items-center justify-center overflow-hidden rounded-xl border border-white/10 bg-[#0d1016]/75 text-sm font-black tracking-[-0.04em] shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] backdrop-blur-md transition duration-300 group-hover:-translate-y-0.5 group-hover:border-blue-400/35">
+          <span className="relative flex h-10 w-10 shrink-0 items-center justify-center overflow-hidden rounded-xl border border-white/10 bg-[#0d1016]/75 shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] backdrop-blur-md transition duration-300 group-hover:-translate-y-0.5 group-hover:border-blue-400/35 group-hover:shadow-[0_8px_24px_rgba(96,165,250,0.12)]">
             <span className="absolute inset-0 bg-gradient-to-br from-blue-400/10 via-transparent to-cyan-400/10 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-            <span className="relative z-10">MC</span>
+
+            <Image
+              src="/favicon-mc.png"
+              alt=""
+              width={34}
+              height={34}
+              priority
+              className="relative z-10 h-[34px] w-[34px] object-contain transition-transform duration-300 group-hover:scale-105"
+            />
           </span>
 
           <span className="min-w-0">
@@ -84,7 +88,7 @@ export default function Navbar() {
             </span>
 
             <span className="mt-0.5 hidden truncate text-[11px] text-zinc-500 sm:block">
-              Desarrollador Full-stack
+              Implementación · Backend · QA
             </span>
           </span>
         </Link>
@@ -183,9 +187,7 @@ export default function Navbar() {
               "
             />
 
-            <span className="relative z-10 tracking-[-0.01em]">
-              CV
-            </span>
+            <span className="relative z-10 tracking-[-0.01em]">CV</span>
 
             <span className="relative z-10 flex h-4 w-4 items-center justify-center overflow-hidden">
               <motion.span
@@ -208,11 +210,7 @@ export default function Navbar() {
                 }}
                 className="absolute flex items-center justify-center"
               >
-                <Download
-                  size={15}
-                  strokeWidth={2}
-                  className="text-blue-300"
-                />
+                <Download size={15} strokeWidth={2} className="text-blue-300" />
               </motion.span>
             </span>
           </motion.a>
@@ -249,8 +247,17 @@ export default function Navbar() {
                 onClick={() => setOpen(false)}
                 className="flex items-center gap-3"
               >
-                <span className="flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-white/[0.04] text-sm font-black">
-                  MC
+                <span className="relative flex h-10 w-10 shrink-0 items-center justify-center overflow-hidden rounded-xl border border-white/10 bg-white/[0.04]">
+                  <span className="absolute inset-0 bg-gradient-to-br from-blue-400/10 via-transparent to-cyan-400/10" />
+
+                  <Image
+                    src="/favicon-mc.png"
+                    alt=""
+                    width={34}
+                    height={34}
+                    priority
+                    className="relative z-10 h-[34px] w-[34px] object-contain"
+                  />
                 </span>
 
                 <span>
@@ -284,10 +291,7 @@ export default function Navbar() {
               }}
               className="relative mx-auto flex min-h-[calc(100dvh-76px)] w-full max-w-[1180px] flex-col px-5 pb-6 pt-4"
             >
-              <nav
-                className="flex flex-col"
-                aria-label="Navegación móvil"
-              >
+              <nav className="flex flex-col" aria-label="Navegación móvil">
                 {links.map((item, index) => (
                   <Link
                     key={item.label}
@@ -319,11 +323,7 @@ export default function Navbar() {
               >
                 <span>Descargar CV</span>
 
-                <Download
-                  size={17}
-                  strokeWidth={2}
-                  className="text-blue-300"
-                />
+                <Download size={17} strokeWidth={2} className="text-blue-300" />
               </a>
 
               <div className="mt-auto border-t border-white/[0.07] pt-5">
@@ -332,9 +332,7 @@ export default function Navbar() {
                   Disponible para oportunidades
                 </div>
 
-                <p className="mt-2 text-sm text-zinc-500">
-                  Chimbote, Perú
-                </p>
+                <p className="mt-2 text-sm text-zinc-500">Chimbote, Perú</p>
               </div>
             </motion.div>
           </motion.div>

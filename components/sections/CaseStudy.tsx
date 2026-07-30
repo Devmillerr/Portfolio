@@ -7,11 +7,13 @@ import {
   Building2,
   Check,
   ClipboardCheck,
+  Code2,
   FileCheck2,
-  FileText,
+  GitBranch,
   Layers3,
   MonitorSmartphone,
-  ShieldCheck,
+  Rocket,
+  Search,
   TrendingUp,
   Users,
 } from "lucide-react";
@@ -32,8 +34,7 @@ const stages: Stage[] = [
     number: "01",
     label: "Antes",
     title: "Procesos manuales",
-    description:
-      "Los registros operativos se completaban en formatos físicos.",
+    description: "Los registros operativos se completaban en formatos físicos.",
     accent: "red",
     items: [
       "Información dispersa",
@@ -43,13 +44,13 @@ const stages: Stage[] = [
   },
   {
     number: "02",
-    label: "Implementación",
-    title: "Solución digital",
+    label: "Solución",
+    title: "Análisis e implementación",
     description:
-      "Diseñé e implementé cartillas digitales adaptadas a cada proceso.",
+      "Convertí los procesos en cartillas digitales con reglas, validaciones y flujos operativos.",
     accent: "blue",
     items: [
-      "Reglas y validaciones",
+      "Análisis de requerimientos",
       "Pruebas funcionales en PDA",
       "Despliegue y capacitación",
     ],
@@ -71,7 +72,7 @@ const stages: Stage[] = [
 
 const metrics = [
   {
-    value: "40+",
+    value: "60+",
     label: "Procesos digitalizados",
     icon: TrendingUp,
   },
@@ -81,9 +82,67 @@ const metrics = [
     icon: Users,
   },
   {
-    value: "3",
+    value: "3+",
     label: "Áreas impactadas",
     icon: Layers3,
+  },
+];
+
+const editorialSteps = [
+  {
+    number: "01",
+    label: "Problema",
+    title: "Registros físicos y procesos manuales.",
+    description:
+      "Información dispersa, duplicidad, baja trazabilidad y mayor tiempo de revisión.",
+    icon: FileCheck2,
+  },
+  {
+    number: "02",
+    label: "Análisis",
+    title: "Necesidades convertidas en requerimientos.",
+    description:
+      "Usuarios, campos, responsables, reglas de negocio y puntos críticos.",
+    icon: Search,
+  },
+  {
+    number: "03",
+    label: "Diseño",
+    title: "Estructura digital adaptable.",
+    description:
+      "Cartillas por proceso, listas, validaciones, cálculos y flujos operativos.",
+    icon: GitBranch,
+  },
+  {
+    number: "04",
+    label: "Implementación",
+    title: "Solución construida en DigiProy.",
+    description:
+      "Formularios digitales, reglas, accesos, sincronización y funcionamiento en PDA.",
+    icon: Code2,
+  },
+  {
+    number: "05",
+    label: "QA",
+    title: "Validación en condiciones reales.",
+    description:
+      "Pruebas funcionales, cálculos, incidencias, correcciones y nuevas validaciones.",
+    icon: ClipboardCheck,
+  },
+  {
+    number: "06",
+    label: "Producción",
+    title: "Despliegue y adopción.",
+    description: "Pase a producción, capacitación, soporte y mejora continua.",
+    icon: Rocket,
+  },
+  {
+    number: "07",
+    label: "Impacto",
+    title: "Operación digital y centralizada.",
+    description:
+      "60+ procesos, 50+ usuarios, 3+ áreas, mayor trazabilidad y menos retrabajo.",
+    icon: TrendingUp,
   },
 ];
 
@@ -120,22 +179,19 @@ function getStageStyles(accent: Accent) {
       icon: "bg-red-500/[0.1] text-red-400",
       glow: "bg-red-500/[0.08]",
       line: "from-red-400 to-orange-400",
-      connector:
-        "border-red-400/25 bg-red-500/[0.08] text-red-400",
+      connector: "border-red-400/25 bg-red-500/[0.08] text-red-400",
     };
   }
 
   if (accent === "emerald") {
     return {
       border: "border-emerald-500/25 hover:border-emerald-400/45",
-      badge:
-        "border-emerald-400/25 bg-emerald-500/[0.09] text-emerald-400",
+      badge: "border-emerald-400/25 bg-emerald-500/[0.09] text-emerald-400",
       text: "text-emerald-400",
       icon: "bg-emerald-500/[0.1] text-emerald-400",
       glow: "bg-emerald-500/[0.08]",
       line: "from-emerald-400 to-cyan-400",
-      connector:
-        "border-emerald-400/25 bg-emerald-500/[0.08] text-emerald-400",
+      connector: "border-emerald-400/25 bg-emerald-500/[0.08] text-emerald-400",
     };
   }
 
@@ -146,8 +202,7 @@ function getStageStyles(accent: Accent) {
     icon: "bg-blue-500/[0.1] text-blue-400",
     glow: "bg-blue-500/[0.08]",
     line: "from-blue-400 to-cyan-400",
-    connector:
-      "border-blue-400/25 bg-blue-500/[0.08] text-blue-400",
+    connector: "border-blue-400/25 bg-blue-500/[0.08] text-blue-400",
   };
 }
 
@@ -443,11 +498,204 @@ function StageVisual({ accent }: { accent: Accent }) {
   return <ResultVisual />;
 }
 
+function EditorialJourney() {
+  return (
+    <div className="mt-16 border-t border-white/[0.07] pt-14 sm:mt-20 sm:pt-16">
+      {/* Encabezado */}
+      <motion.div
+        initial={{
+          opacity: 0,
+          y: 20,
+        }}
+        whileInView={{
+          opacity: 1,
+          y: 0,
+        }}
+        viewport={{
+          once: true,
+          amount: 0.25,
+        }}
+        transition={{
+          duration: 0.6,
+          ease: [0.22, 1, 0.36, 1],
+        }}
+        className="max-w-[520px]"
+      >
+        <div>
+          <div className="flex items-center gap-3">
+            <span className="h-px w-8 bg-blue-400" />
+
+            <p className="text-[9px] font-semibold uppercase tracking-[0.26em] text-blue-300 sm:text-[10px]">
+              El proceso detrás
+            </p>
+          </div>
+
+          <h3 className="mt-4 max-w-[430px] text-[1.75rem] font-extrabold leading-[1.08] tracking-[-0.04em] text-white sm:text-[2.1rem]">
+            De la necesidad a producción.
+          </h3>
+        </div>
+      </motion.div>
+
+      {/* Contenido */}
+      <div
+        className="grid
+    gap-12
+    lg:grid-cols-[320px_minmax(0,1fr)]
+    lg:gap-20
+    xl:grid-cols-[360px_minmax(0,1fr)]
+    xl:gap-28"
+      >
+        {/* Información lateral */}
+        <motion.aside
+          initial={{
+            opacity: 0,
+            y: 14,
+          }}
+          whileInView={{
+            opacity: 1,
+            y: 0,
+          }}
+          viewport={{
+            once: true,
+            amount: 0.3,
+          }}
+          transition={{
+            duration: 0.5,
+          }}
+          className="mt-10 h-fit lg:sticky lg:top-28"
+        >
+          <p className="text-[9px] font-semibold uppercase tracking-[0.22em] text-blue-300/75 sm:text-[10px]">
+            Mi participación
+          </p>
+
+          <p className="mt-2 text-[13px] font-medium leading-5 text-zinc-400">
+            Ciclo completo de la solución.
+          </p>
+
+          <div className="mt-5 flex items-center gap-3">
+            <span className="h-px w-8 bg-blue-400/40" />
+
+            <span className="text-[9px] font-medium uppercase tracking-[0.18em] text-zinc-600">
+              De principio a fin
+            </span>
+          </div>
+
+          <p className="mt-5 max-w-[210px] text-[12px] leading-6 text-zinc-500">
+            Análisis, diseño, implementación, QA y mejora continua aplicados a
+            una operación industrial real.
+          </p>
+        </motion.aside>
+
+        {/* Línea de tiempo */}
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{
+            once: true,
+            amount: 0.08,
+          }}
+          className="relative lg:-mt-25"
+        >
+          {/* Línea vertical */}
+          <div className="absolute bottom-0 left-[18px] top-0 w-px bg-gradient-to-b from-blue-400/40 via-blue-400/15 to-transparent sm:left-[21px]" />
+
+          {editorialSteps.map((step, index) => {
+            const Icon = step.icon;
+            const isLast = index === editorialSteps.length - 1;
+
+            return (
+              <motion.article
+                key={step.number}
+                variants={itemVariants}
+                className="
+                  group
+                  relative
+                  grid
+                  grid-cols-[38px_1fr]
+                  gap-5
+                  sm:grid-cols-[44px_1fr]
+                  sm:gap-6
+                "
+              >
+                {/* Icono */}
+                <motion.div
+                  whileHover={{
+                    scale: 1.07,
+                    rotate: -3,
+                  }}
+                  transition={{
+                    type: "spring",
+                    stiffness: 280,
+                    damping: 20,
+                  }}
+                  className="
+                    relative
+                    z-10
+                    flex
+                    h-[38px]
+                    w-[38px]
+                    items-center
+                    justify-center
+                    rounded-xl
+                    border
+                    border-white/[0.08]
+                    bg-[#0d1118]
+                    text-blue-400
+                    shadow-[0_10px_30px_rgba(0,0,0,0.25)]
+                    transition-colors
+                    duration-300
+                    group-hover:border-blue-400/35
+                    group-hover:bg-blue-500/[0.09]
+                    sm:h-11
+                    sm:w-11
+                  "
+                >
+                  <Icon size={16} />
+                </motion.div>
+
+                {/* Información */}
+                <div
+                  className={`
+                    ${
+                      isLast
+                        ? "pb-0"
+                        : "mb-7 border-b border-white/[0.055] pb-7"
+                    }
+                  `}
+                >
+                  <div className="flex flex-wrap items-center gap-3">
+                    <span className="text-[9px] font-semibold tracking-[0.18em] text-blue-400/60">
+                      {step.number}
+                    </span>
+
+                    <span className="text-[9px] font-semibold uppercase tracking-[0.22em] text-blue-300 sm:text-[10px]">
+                      {step.label}
+                    </span>
+                  </div>
+
+                  <h4 className="mt-2.5 max-w-[650px] text-[17px] font-bold leading-tight tracking-[-0.025em] text-white transition-colors duration-300 group-hover:text-blue-100 sm:text-lg">
+                    {step.title}
+                  </h4>
+
+                  <p className="mt-2 max-w-[680px] text-[12px] leading-[1.7] text-zinc-500 transition-colors duration-300 group-hover:text-zinc-400 sm:text-[13px]">
+                    {step.description}
+                  </p>
+                </div>
+              </motion.article>
+            );
+          })}
+        </motion.div>
+      </div>
+    </div>
+  );
+}
+
 export default function CaseStudy() {
   return (
     <section
       id="case-study"
-      className="relative overflow-hidden border-b border-white/[0.07] bg-[#0b0e13] py-14 text-white sm:py-16 lg:flex lg:min-h-[calc(100svh-84px)] lg:items-center lg:py-8"
+      className="relative overflow-hidden border-b border-white/[0.07] bg-[#0b0e13] py-10 text-white sm:py-12 lg:pb-16 lg:pt-8"
     >
       {/* Fondo decorativo */}
       <div className="pointer-events-none absolute inset-0">
@@ -493,12 +741,12 @@ export default function CaseStudy() {
               <span className="h-px w-8 bg-blue-400" />
 
               <p className="text-[10px] font-semibold uppercase tracking-[0.28em] text-blue-300 sm:text-[11px]">
-                Caso de éxito
+                Caso de estudio
               </p>
             </div>
 
-            <h2 className="mt-2 max-w-[760px] text-[2rem] font-extrabold leading-[1.05] tracking-[-0.045em] sm:text-[2.35rem] lg:text-[2.55rem]">
-              Digitalización de procesos operativos
+            <h2 className="mt-2 max-w-[900px] text-[2rem] font-extrabold leading-[1.05] tracking-[-0.045em] sm:text-[2.35rem] lg:text-[2.55rem]">
+              60+ procesos digitalizados.
             </h2>
 
             <p className="mt-3 max-w-[690px] text-sm leading-6 text-zinc-400 sm:text-[15px]">
@@ -520,9 +768,7 @@ export default function CaseStudy() {
             </span>
 
             <div>
-              <p className="text-sm font-semibold text-white">
-                Camposol S.A.
-              </p>
+              <p className="text-sm font-semibold text-white">Camposol S.A.</p>
 
               <p className="mt-0.5 text-[11px] text-zinc-500">
                 Producción · Calidad · Operaciones
@@ -583,17 +829,13 @@ export default function CaseStudy() {
                       <span
                         className={`flex h-8 w-8 items-center justify-center rounded-xl ${styles.icon}`}
                       >
-                        {stage.accent === "red" && (
-                          <AlertTriangle size={15} />
-                        )}
+                        {stage.accent === "red" && <AlertTriangle size={15} />}
 
                         {stage.accent === "blue" && (
                           <MonitorSmartphone size={15} />
                         )}
 
-                        {stage.accent === "emerald" && (
-                          <FileCheck2 size={15} />
-                        )}
+                        {stage.accent === "emerald" && <FileCheck2 size={15} />}
                       </span>
                     </div>
 
@@ -687,127 +929,66 @@ export default function CaseStudy() {
         </motion.div>
 
         {/* Métricas */}
-<motion.div
-  initial={{
-    opacity: 0,
-    y: 18,
-  }}
-  whileInView={{
-    opacity: 1,
-    y: 0,
-  }}
-  viewport={{
-    once: true,
-    amount: 0.25,
-  }}
-  transition={{
-    duration: 0.6,
-    delay: 0.12,
-    ease: [0.22, 1, 0.36, 1],
-  }}
-  className="mt-4 grid overflow-hidden rounded-[16px] border border-white/[0.08] bg-white/[0.018] shadow-[0_14px_40px_rgba(0,0,0,0.12)] sm:grid-cols-3"
->
-  {metrics.map((metric, index) => {
-    const Icon = metric.icon;
-
-    return (
-      <motion.div
-        key={metric.label}
-        whileHover={{
-          backgroundColor: "rgba(59, 130, 246, 0.035)",
-        }}
-        className={`group flex min-h-[54px] items-center gap-3 px-4 py-2 ${
-          index !== metrics.length - 1
-            ? "border-b border-white/[0.07] sm:border-b-0 sm:border-r"
-            : ""
-        }`}
-      >
-        <motion.span
-          whileHover={{
-            scale: 1.08,
-            rotate: 3,
+        <motion.div
+          initial={{
+            opacity: 0,
+            y: 18,
           }}
-          className="flex h-8 w-8 shrink-0 items-center justify-center rounded-[10px] bg-blue-500/[0.09] text-blue-400 transition-colors duration-300 group-hover:bg-blue-500/[0.14]"
+          whileInView={{
+            opacity: 1,
+            y: 0,
+          }}
+          viewport={{
+            once: true,
+            amount: 0.25,
+          }}
+          transition={{
+            duration: 0.6,
+            delay: 0.12,
+            ease: [0.22, 1, 0.36, 1],
+          }}
+          className="mt-4 grid overflow-hidden rounded-[16px] border border-white/[0.08] bg-white/[0.018] shadow-[0_14px_40px_rgba(0,0,0,0.12)] sm:grid-cols-3"
         >
-          <Icon size={16} />
-        </motion.span>
+          {metrics.map((metric, index) => {
+            const Icon = metric.icon;
 
-        <div className="min-w-0">
-          <p className="text-[1.2rem] font-bold leading-none tracking-[-0.04em] text-white">
-            {metric.value}
-          </p>
+            return (
+              <motion.div
+                key={metric.label}
+                whileHover={{
+                  backgroundColor: "rgba(59, 130, 246, 0.035)",
+                }}
+                className={`group flex min-h-[54px] items-center gap-3 px-4 py-2 ${
+                  index !== metrics.length - 1
+                    ? "border-b border-white/[0.07] sm:border-b-0 sm:border-r"
+                    : ""
+                }`}
+              >
+                <motion.span
+                  whileHover={{
+                    scale: 1.08,
+                    rotate: 3,
+                  }}
+                  className="flex h-8 w-8 shrink-0 items-center justify-center rounded-[10px] bg-blue-500/[0.09] text-blue-400 transition-colors duration-300 group-hover:bg-blue-500/[0.14]"
+                >
+                  <Icon size={16} />
+                </motion.span>
 
-          <p className="mt-1 truncate text-[10px] leading-none text-zinc-500">
-            {metric.label}
-          </p>
-        </div>
-      </motion.div>
-    );
-  })}
-</motion.div>
+                <div className="min-w-0">
+                  <p className="text-[1.2rem] font-bold leading-none tracking-[-0.04em] text-white">
+                    {metric.value}
+                  </p>
 
-{/* Beneficios */}
-<motion.div
-  initial={{ opacity: 0 }}
-  whileInView={{ opacity: 1 }}
-  viewport={{ once: true }}
-  transition={{ duration: 0.5, delay: 0.2 }}
-  className="mt-3 flex w-full items-center justify-between gap-4"
->
-  {[
-    {
-      icon: ShieldCheck,
-      text: "Menos retrabajo",
-    },
-    {
-      icon: ClipboardCheck,
-      text: "Mayor calidad de datos",
-    },
-    {
-      icon: TrendingUp,
-      text: "Mejor trazabilidad",
-    },
-    {
-      icon: FileText,
-      text: "Información centralizada",
-    },
-  ].map((item) => {
-    const Icon = item.icon;
+                  <p className="mt-1 truncate text-[10px] leading-none text-zinc-500">
+                    {metric.label}
+                  </p>
+                </div>
+              </motion.div>
+            );
+          })}
+        </motion.div>
 
-    return (
-      <motion.div
-        key={item.text}
-        whileHover={{
-          y: -2,
-        }}
-        transition={{
-          type: "spring",
-          stiffness: 300,
-          damping: 22,
-        }}
-        className="group flex flex-1 items-center justify-center gap-2 cursor-default"
-      >
-        {/* Punto */}
-        <span className="relative flex h-2.5 w-2.5 items-center justify-center">
-          <span className="absolute h-2 w-2 rounded-full bg-blue-400/25 opacity-0 blur-sm transition-all duration-300 group-hover:scale-[2.5] group-hover:opacity-100" />
-
-          <span className="relative h-1.5 w-1.5 rounded-full bg-blue-400 transition-all duration-300 group-hover:scale-150" />
-        </span>
-
-        {/* Icono */}
-        <Icon
-          size={12}
-          className="text-blue-400 transition-all duration-300 group-hover:drop-shadow-[0_0_8px_rgba(96,165,250,.8)]"
-        />
-
-        {/* Texto */}
-        <span className="text-[11px] whitespace-nowrap text-zinc-500 transition-all duration-300 group-hover:text-white">
-          {item.text}
-        </span>
-      </motion.div>
-    );
-  })}
-</motion.div>
+        <EditorialJourney />
       </div>
     </section>
   );

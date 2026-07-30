@@ -1,11 +1,6 @@
 "use client";
 
-import {
-  useId,
-  useRef,
-  useState,
-  type MouseEvent,
-} from "react";
+import { useId, useRef, useState, type MouseEvent } from "react";
 
 import {
   AnimatePresence,
@@ -22,6 +17,7 @@ type Props = {
   value: string;
   title: string;
   subtitle: string;
+  featured?: boolean;
 };
 
 export default function StatCard({
@@ -29,21 +25,17 @@ export default function StatCard({
   value,
   title,
   subtitle,
+  featured = false,
 }: Props) {
   const cardRef = useRef<HTMLDivElement>(null);
   const [hovered, setHovered] = useState(false);
   const glowId = useId().replace(/:/g, "");
 
-  const numericValue = Number.parseInt(
-    value.replace(/\D/g, ""),
-    10,
-  );
+  const numericValue = Number.parseInt(value.replace(/\D/g, ""), 10);
 
   const hasNumericValue = !Number.isNaN(numericValue);
 
-  const suffix = hasNumericValue
-    ? value.replace(String(numericValue), "")
-    : "";
+  const suffix = hasNumericValue ? value.replace(String(numericValue), "") : "";
 
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
@@ -66,11 +58,8 @@ export default function StatCard({
     )
   `;
 
-  const handleMouseMove = (
-    event: MouseEvent<HTMLDivElement>,
-  ) => {
-    const rect =
-      cardRef.current?.getBoundingClientRect();
+  const handleMouseMove = (event: MouseEvent<HTMLDivElement>) => {
+    const rect = cardRef.current?.getBoundingClientRect();
 
     if (!rect) return;
 
@@ -93,12 +82,52 @@ export default function StatCard({
         stiffness: 260,
         damping: 22,
       }}
-      className="group relative overflow-hidden rounded-xl bg-[#0a0e16]/95 p-px"
+      className={`
+        group
+        relative
+        overflow-hidden
+        rounded-xl
+        p-px
+        ${
+          featured
+            ? "bg-blue-400/25 shadow-[0_14px_40px_rgba(59,130,246,0.12)]"
+            : "bg-[#0a0e16]/95"
+        }
+      `}
     >
       {/* Borde base */}
-      <div className="pointer-events-none absolute inset-0 rounded-xl border border-white/[0.08]" />
+      <div
+        className={`
+          pointer-events-none
+          absolute
+          inset-0
+          rounded-xl
+          border
+          ${featured ? "border-blue-400/30" : "border-white/[0.08]"}
+        `}
+      />
 
-      {/* Línea animada solo en hover */}
+      {/* Glow permanente para la tarjeta destacada */}
+      {featured && (
+        <>
+          <div className="pointer-events-none absolute -left-8 -top-10 h-28 w-28 rounded-full bg-blue-500/[0.14] blur-3xl" />
+
+          <motion.div
+            animate={{
+              opacity: [0.35, 0.7, 0.35],
+              scale: [0.95, 1.05, 0.95],
+            }}
+            transition={{
+              duration: 5,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+            className="pointer-events-none absolute -right-10 bottom-[-60px] h-28 w-28 rounded-full bg-cyan-400/[0.08] blur-3xl"
+          />
+        </>
+      )}
+
+      {/* Línea animada en hover */}
       <svg
         className="pointer-events-none absolute inset-0 h-full w-full"
         viewBox="0 0 100 100"
@@ -107,10 +136,7 @@ export default function StatCard({
       >
         <defs>
           <filter id={glowId}>
-            <feGaussianBlur
-              stdDeviation="1.6"
-              result="blur"
-            />
+            <feGaussianBlur stdDeviation="1.6" result="blur" />
 
             <feMerge>
               <feMergeNode in="blur" />
@@ -127,8 +153,8 @@ export default function StatCard({
           rx="7"
           ry="7"
           fill="none"
-          stroke="rgba(59,130,246,0.10)"
-          strokeWidth="0.7"
+          stroke={featured ? "rgba(96,165,250,0.22)" : "rgba(59,130,246,0.10)"}
+          strokeWidth={featured ? "0.85" : "0.7"}
           vectorEffect="non-scaling-stroke"
         />
 
@@ -174,16 +200,62 @@ export default function StatCard({
         </AnimatePresence>
       </svg>
 
-      {/* Glow general */}
-      <div className="pointer-events-none absolute inset-0 rounded-xl bg-gradient-to-br from-blue-500/[0.025] via-transparent to-cyan-400/[0.01] transition-opacity duration-300 group-hover:from-blue-500/[0.055] group-hover:to-cyan-400/[0.025]" />
+      {/* Gradiente general */}
+      <div
+        className={`
+          pointer-events-none
+          absolute
+          inset-0
+          rounded-xl
+          bg-gradient-to-br
+          via-transparent
+          transition-opacity
+          duration-300
+          ${
+            featured
+              ? "from-blue-500/[0.09] to-cyan-400/[0.035]"
+              : "from-blue-500/[0.025] to-cyan-400/[0.01] group-hover:from-blue-500/[0.055] group-hover:to-cyan-400/[0.025]"
+          }
+        `}
+      />
 
       {/* Luz superior izquierda */}
-      <div className="pointer-events-none absolute left-0 top-0 h-9 w-9 rounded-tl-xl bg-blue-400/[0.08] opacity-0 blur-xl transition-opacity duration-300 group-hover:opacity-100" />
+      <div
+        className={`
+          pointer-events-none
+          absolute
+          left-0
+          top-0
+          h-9
+          w-9
+          rounded-tl-xl
+          bg-blue-400/[0.08]
+          blur-xl
+          transition-opacity
+          duration-300
+          ${featured ? "opacity-100" : "opacity-0 group-hover:opacity-100"}
+        `}
+      />
 
       {/* Luz inferior derecha */}
-      <div className="pointer-events-none absolute bottom-0 right-0 h-9 w-9 rounded-br-xl bg-cyan-400/[0.07] opacity-0 blur-xl transition-opacity duration-300 group-hover:opacity-100" />
+      <div
+        className={`
+          pointer-events-none
+          absolute
+          bottom-0
+          right-0
+          h-9
+          w-9
+          rounded-br-xl
+          bg-cyan-400/[0.07]
+          blur-xl
+          transition-opacity
+          duration-300
+          ${featured ? "opacity-70" : "opacity-0 group-hover:opacity-100"}
+        `}
+      />
 
-      {/* Spotlight que sigue el mouse */}
+      {/* Spotlight que sigue al mouse */}
       <motion.div
         className="pointer-events-none absolute inset-0 rounded-xl"
         style={{
@@ -198,8 +270,27 @@ export default function StatCard({
       />
 
       {/* Contenido */}
-      <div className="relative z-10 flex min-h-[84px] items-center gap-3 rounded-[11px] bg-[#0a0e16]/90 px-3.5 py-3 backdrop-blur-xl">
-        {/* Ícono */}
+      <div
+        className={`
+  relative
+  z-10
+  flex
+  h-full
+  min-h-[84px]
+  items-center
+  gap-3
+  rounded-[11px]
+  px-3.5
+  py-3
+  backdrop-blur-xl
+  ${
+    featured
+      ? "bg-[linear-gradient(135deg,rgba(17,31,52,0.96),rgba(10,14,22,0.94))]"
+      : "bg-[#0a0e16]/90"
+  }
+`}
+      >
+        {/* Icono */}
         <motion.div
           animate={{
             rotate: hovered ? -4 : 0,
@@ -211,7 +302,23 @@ export default function StatCard({
             stiffness: 280,
             damping: 20,
           }}
-          className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-white/[0.07] bg-white/[0.035] text-base shadow-[inset_0_1px_0_rgba(255,255,255,0.04)]"
+          className={`
+            flex
+            h-9
+            w-9
+            shrink-0
+            items-center
+            justify-center
+            rounded-lg
+            border
+            text-base
+            shadow-[inset_0_1px_0_rgba(255,255,255,0.04)]
+            ${
+              featured
+                ? "border-blue-400/25 bg-blue-500/[0.11]"
+                : "border-white/[0.07] bg-white/[0.035]"
+            }
+          `}
         >
           {icon}
         </motion.div>
@@ -219,27 +326,45 @@ export default function StatCard({
         {/* Información */}
         <div className="min-w-0">
           <h3
-            className={`font-bold leading-none text-blue-400 ${
-              value.length > 12
-                ? "text-[12px] sm:text-[13px]"
-                : "text-lg sm:text-xl"
-            }`}
+            className={`
+              font-bold
+              leading-none
+              ${featured ? "text-blue-300" : "text-blue-400"}
+              ${
+                value.length > 12
+                  ? "text-[12px] sm:text-[13px]"
+                  : "text-lg sm:text-xl"
+              }
+            `}
           >
             {hasNumericValue ? (
-              <Counter
-                value={numericValue}
-                suffix={suffix}
-              />
+              <Counter value={numericValue} suffix={suffix} />
             ) : (
               value
             )}
           </h3>
 
-          <p className="mt-1 text-[12px] font-semibold leading-4 text-white">
+          <p
+            className={`
+              mt-1
+              text-[12px]
+              font-semibold
+              leading-4
+              ${featured ? "text-blue-50" : "text-white"}
+            `}
+          >
             {title}
           </p>
 
-          <p className="mt-0.5 line-clamp-2 text-[10px] leading-[14px] text-zinc-500">
+          <p
+            className={`
+              mt-0.5
+              line-clamp-2
+              text-[10px]
+              leading-[14px]
+              ${featured ? "text-zinc-400" : "text-zinc-500"}
+            `}
+          >
             {subtitle}
           </p>
         </div>

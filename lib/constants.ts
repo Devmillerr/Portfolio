@@ -7,12 +7,14 @@ export const hero = {
 
   role: "Software Implementation Analyst",
 
-  subtitle: "Backend Developer • QA Engineer",
+  subtitle: "Backend Developer · QA",
 
-  headline: "Implementando software que optimiza operaciones.",
+  headline: "Construyo e implemento",
+
+  headlineAccent: "software.",
 
   description:
-    "Analizo procesos, diseño soluciones digitales, realizo pruebas funcionales y coordino implementaciones en producción. También desarrollo servicios Backend con NestJS, TypeScript y PostgreSQL.",
+    "Analizo necesidades, desarrollo soluciones backend, valido funcionalidades y acompaño su puesta en producción.",
 
   location: "Chimbote, Perú",
 
@@ -20,30 +22,34 @@ export const hero = {
 
   available: true,
 };
-
 // ==============================
 // IMPACTO
 // ==============================
 
 export const stats = [
   {
-    value: "40+",
-    label: "Cartillas digitalizadas",
+    value: "60+",
+    label: "Procesos digitalizados",
   },
 
   {
     value: "50+",
-    label: "Usuarios impactados",
+    label: "Usuarios capacitados",
   },
 
   {
-    value: "3",
-    label: "Áreas operativas",
+    value: "3+",
+    label: "Áreas impactadas",
+  },
+
+  {
+    value: "3+",
+    label: "Años en software",
   },
 ];
 
 // ==============================
-// SKILLS
+// TECNOLOGÍAS
 // ==============================
 
 export const technologies = [
@@ -52,21 +58,27 @@ export const technologies = [
   "Node.js",
   "PostgreSQL",
   "Prisma ORM",
+  "API REST",
+  "JWT",
+  "Postman",
   "Git",
   "GitHub",
-  "Postman",
-  "REST API",
 ];
 
 // ==============================
-// CONTACTO
+// CONFIGURACIÓN GENERAL
 // ==============================
 
 export const siteConfig = {
-  role: "Software Implementation Analyst / Full-Stack Developer",
+  role: "Software Implementation Analyst / Backend Developer",
+
   location: "Chimbote, Perú",
+
   company: "Camposol S.A.",
+
   github: "https://github.com/TU-USUARIO",
+
   linkedin: "https://www.linkedin.com/in/TU-USUARIO",
-  whatsapp: "https://wa.me/51TU_NUMERO",
+
+  whatsapp: "https://wa.me/51937195838",
 };

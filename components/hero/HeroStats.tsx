@@ -6,8 +6,14 @@ import StatCard from "./StatCard";
 export default function HeroStats() {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 18 }}
-      animate={{ opacity: 1, y: 0 }}
+      initial={{
+        opacity: 0,
+        y: 18,
+      }}
+      animate={{
+        opacity: 1,
+        y: 0,
+      }}
       transition={{
         duration: 0.7,
         delay: 0.65,
@@ -15,13 +21,24 @@ export default function HeroStats() {
       }}
       className="mt-4 grid grid-cols-1 gap-2.5 sm:grid-cols-2 lg:grid-cols-4"
     >
+      {/* Experiencia principal */}
       <StatCard
-        icon="📋"
-        value="40+"
-        title="Procesos digitalizados"
-        subtitle="Formatos implementados en operaciones"
+        featured
+        icon="💻"
+        value="3+"
+        title="Años de experiencia"
+        subtitle="Backend, implementación y QA"
       />
 
+      {/* Procesos */}
+      <StatCard
+        icon="📋"
+        value="60+"
+        title="Procesos digitalizados"
+        subtitle="Soluciones implementadas en operación"
+      />
+
+      {/* Usuarios */}
       <StatCard
         icon="👥"
         value="50+"
@@ -29,18 +46,12 @@ export default function HeroStats() {
         subtitle="Soporte y acompañamiento operativo"
       />
 
+      {/* Áreas */}
       <StatCard
         icon="🏭"
         value="3+"
         title="Áreas impactadas"
         subtitle="Producción, Calidad y Operaciones"
-      />
-
-      <StatCard
-        icon="💻"
-        value="3+"
-        title="Años desarrollando"
-        subtitle="Backend, APIs REST y bases de datos"
       />
     </motion.div>
   );
