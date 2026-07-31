@@ -31,17 +31,19 @@ const secondaryProjects: SecondaryProject[] = [
   {
     title: "API Finanzas",
     eyebrow: "Backend · API REST",
-    description: "",
+    description:
+      "API modular para gestionar operaciones financieras, autenticación y control de acceso.",
     technologies: ["NestJS", "TypeScript", "Prisma", "JWT"],
-    github: "https://github.com/TUUSUARIO",
+    github: "https://github.com/Devmillerr/nestjs-finance-api",
     type: "api",
   },
   {
     title: "Mega Red",
     eyebrow: "Backend · Gestión",
-    description: "",
+    description:
+      "Backend orientado a la gestión de usuarios, permisos y recursos mediante roles.",
     technologies: ["NestJS", "RBAC", "PostgreSQL"],
-    github: "https://github.com/TUUSUARIO",
+    github: "https://github.com/Devmillerr/mega-red",
     type: "network",
   },
 ];

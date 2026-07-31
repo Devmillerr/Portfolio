@@ -76,9 +76,9 @@ export const siteConfig = {
 
   company: "Camposol S.A.",
 
-  github: "https://github.com/TU-USUARIO",
+  github: "https://github.com/Devmillerr",
 
-  linkedin: "https://www.linkedin.com/in/TU-USUARIO",
+  linkedin: "https://www.linkedin.com/in/devmillerr/",
 
   whatsapp: "https://wa.me/51937195838",
 };

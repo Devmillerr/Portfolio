@@ -2,20 +2,11 @@
 
 import { AnimatePresence, motion } from "framer-motion";
 import {
-  
   CheckCircle2,
   ClipboardCheck,
-  
-
-  FileText,
-  Folder,
- 
- 
   Search,
-  Settings2,
- 
-  Users,
 } from "lucide-react";
+import Image from "next/image";
 import { useEffect, useState } from "react";
 
 type DemoView = "login" | "dashboard";
@@ -50,27 +41,22 @@ const evaluations = [
 const menuItems = [
   {
     label: "Evaluaciones",
-    
     active: true,
   },
   {
     label: "Modelo de evaluación",
-    icon: FileText,
     active: false,
   },
   {
     label: "Planes",
-    icon: Folder,
     active: false,
   },
   {
     label: "Usuarios",
-    icon: Users,
     active: false,
   },
   {
     label: "Configuración",
-    icon: Settings2,
     active: false,
   },
 ];
@@ -144,9 +130,11 @@ function DigiProyLogo({ compact = false }: { compact?: boolean }) {
   sm:h-[260px]
 "
     >
-      <img
-        src="/digiproy-login.png"
+      <Image
+        src="/digiproy-login.webp"
         alt="Login DigiProy"
+        fill
+        sizes="(max-width: 640px) 100vw, 760px"
         draggable={false}
         className="
   absolute
@@ -266,8 +254,6 @@ function DashboardView({ onBack }: { onBack: () => void }) {
 
           <nav className="space-y-0.5 p-1.5">
             {menuItems.map((item, index) => {
-              const Icon = item.icon;
-
               return (
                 <motion.button
                   key={item.label}

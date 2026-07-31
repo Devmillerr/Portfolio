@@ -11,13 +11,13 @@ const socialLinks = [
   },
   {
     label: "GitHub",
-    href: "https://github.com/TU-USUARIO",
+    href: "https://github.com/Devmillerr",
     icon: FaGithub,
     external: true,
   },
   {
     label: "LinkedIn",
-    href: "https://www.linkedin.com/in/TU-USUARIO",
+    href: "https://www.linkedin.com/in/devmillerr/",
     icon: FaLinkedinIn,
     external: true,
   },
