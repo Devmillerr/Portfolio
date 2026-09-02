@@ -1,57 +1,42 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { Building2, Clock3, ListChecks, Users } from "lucide-react";
+
 import StatCard from "./StatCard";
 
 export default function HeroStats() {
   return (
     <motion.div
-      initial={{
-        opacity: 0,
-        y: 18,
-      }}
-      animate={{
-        opacity: 1,
-        y: 0,
-      }}
-      transition={{
-        duration: 0.7,
-        delay: 0.65,
-        ease: "easeOut",
-      }}
-      className="mt-4 grid grid-cols-1 gap-2.5 sm:grid-cols-2 lg:grid-cols-4"
+      initial={{ opacity: 0, y: 18 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.7, delay: 0.65, ease: "easeOut" }}
+      className="mt-5 grid grid-cols-2 gap-2.5 lg:grid-cols-4"
     >
-      {/* Experiencia principal */}
       <StatCard
         featured
-        icon="💻"
+        icon={Clock3}
         value="3+"
-        title="Años de experiencia"
+        title="Experiencia"
         subtitle="Backend, implementación y QA"
       />
-
-      {/* Procesos */}
       <StatCard
-        icon="📋"
+        icon={ListChecks}
         value="60+"
-        title="Procesos digitalizados"
-        subtitle="Soluciones implementadas en operación"
+        title="Procesos"
+        subtitle="Digitalizados y en operación"
       />
-
-      {/* Usuarios */}
       <StatCard
-        icon="👥"
+        icon={Users}
         value="50+"
-        title="Usuarios capacitados"
-        subtitle="Soporte y acompañamiento operativo"
+        title="Usuarios"
+        subtitle="Capacitados y con soporte"
       />
-
-      {/* Áreas */}
       <StatCard
-        icon="🏭"
+        icon={Building2}
         value="3+"
-        title="Áreas impactadas"
-        subtitle="Producción, Calidad y Operaciones"
+        title="Áreas"
+        subtitle="Producción, Calidad, Operaciones"
       />
     </motion.div>
   );
