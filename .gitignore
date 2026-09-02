@@ -22,7 +22,13 @@
 
 # misc
 .DS_Store
+Thumbs.db
+desktop.ini
 *.pem
+
+# editores / IDE
+.vscode/
+.idea/
 
 # debug
 npm-debug.log*
@@ -39,3 +45,10 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# generado por `next dev` (ver AGENTS.md) — se regenera solo, no forma parte del proyecto
+AGENTS.md
+
+# documentos internos de auditoría/revisión — no son parte del portafolio público
+AUDITORIA-FINAL.md
+INVENTARIO-TECNICO.md
