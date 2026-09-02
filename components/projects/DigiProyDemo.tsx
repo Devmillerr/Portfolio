@@ -1,13 +1,11 @@
 "use client";
 
 import { AnimatePresence, motion } from "framer-motion";
-import {
-  CheckCircle2,
-  ClipboardCheck,
-  Search,
-} from "lucide-react";
+import { CheckCircle2, ClipboardCheck, Search } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
+
+import { EASE } from "@/lib/motion";
 
 type DemoView = "login" | "dashboard";
 
@@ -98,7 +96,7 @@ function DigiProyLogo({ compact = false }: { compact?: boolean }) {
   );
 }
 
- function LoginView({ onLogin }: { onLogin: () => void }) {
+function LoginView({ onLogin }: { onLogin: () => void }) {
   const [loading, setLoading] = useState(false);
 
   const handleLogin = () => {
@@ -202,7 +200,7 @@ function DashboardView({ onBack }: { onBack: () => void }) {
       }}
       transition={{
         duration: 0.48,
-        ease: [0.22, 1, 0.36, 1],
+        ease: EASE,
       }}
       className="h-full min-h-[220px] bg-[#f3f5f1] text-[#263128] sm:min-h-[250px]"
     >
@@ -234,7 +232,6 @@ function DashboardView({ onBack }: { onBack: () => void }) {
               }}
               className="h-1.5 w-1.5 rounded-full bg-emerald-200 shadow-[0_0_8px_rgba(167,243,208,0.9)]"
             />
-
             Online
           </span>
         </div>
@@ -275,7 +272,6 @@ function DashboardView({ onBack }: { onBack: () => void }) {
                       : "border-transparent text-[#536456]/60 hover:bg-white/60 hover:text-[#375e3b]"
                   }`}
                 >
-
                   <span className="truncate text-[7px] font-medium sm:text-[8px]">
                     {item.label}
                   </span>
@@ -285,7 +281,7 @@ function DashboardView({ onBack }: { onBack: () => void }) {
           </nav>
         </aside>
 
-        <main className="min-w-0 bg-[#f6f7f4]" >
+        <main className="min-w-0 bg-[#f6f7f4]">
           <div className="flex h-7 items-end border-b border-[#4f6d51]/12 bg-[#e8ece5] px-2">
             <div className="flex h-6 items-center gap-1.5 rounded-t-md border border-b-0 border-[#3d7942]/16 bg-white px-2.5 text-[7px] font-semibold text-[#39733f] sm:text-[8px]">
               <ClipboardCheck size={9} />
@@ -295,33 +291,33 @@ function DashboardView({ onBack }: { onBack: () => void }) {
             <button
               type="button"
               onClick={onBack}
-              className="ml-auto mb-1.5 text-[1px] text-[#536456]/50 transition hover:text-[#39733f] "
+              className="ml-auto mb-1.5 text-[7px] text-[#536456]/50 transition hover:text-[#39733f] sm:text-[8px]"
             >
               Login
             </button>
           </div>
 
-<div className="flex h-[20px] items-center gap-[3px] overflow-hidden border-b border-[#4f6d51]/10 bg-white px-2">
-  {["Nuevo", "Editar", "Eliminar", "Resumen"].map((action, index) => (
-    <motion.button
-      key={action}
-      type="button"
-      initial={{
-        opacity: 0,
-        y: -3,
-      }}
-      animate={{
-        opacity: 1,
-        y: 0,
-      }}
-      transition={{
-        delay: 0.08 + index * 0.05,
-      }}
-      style={{
-        fontSize: "7px",
-        lineHeight: "1",
-      }}
-      className="
+          <div className="flex h-[20px] items-center gap-[3px] overflow-hidden border-b border-[#4f6d51]/10 bg-white px-2">
+            {["Nuevo", "Editar", "Eliminar", "Resumen"].map((action, index) => (
+              <motion.button
+                key={action}
+                type="button"
+                initial={{
+                  opacity: 0,
+                  y: -3,
+                }}
+                animate={{
+                  opacity: 1,
+                  y: 0,
+                }}
+                transition={{
+                  delay: 0.08 + index * 0.05,
+                }}
+                style={{
+                  fontSize: "7px",
+                  lineHeight: "1",
+                }}
+                className="
         h-[13px]
         rounded-[2px]
         border
@@ -334,17 +330,17 @@ function DashboardView({ onBack }: { onBack: () => void }) {
         hover:border-[#3e7c44]/25
         hover:bg-[#f3f7f2]
       "
-    >
-      {action}
-    </motion.button>
-  ))}
+              >
+                {action}
+              </motion.button>
+            ))}
 
-  <span
-    style={{
-      fontSize: "7px",
-      lineHeight: "1",
-    }}
-    className="
+            <span
+              style={{
+                fontSize: "7px",
+                lineHeight: "1",
+              }}
+              className="
       ml-auto
       flex
       h-[13px]
@@ -357,10 +353,10 @@ function DashboardView({ onBack }: { onBack: () => void }) {
       font-medium
       text-[#39733f]
     "
-  >
-    Habilitar evaluación
-  </span>
-</div>
+            >
+              Habilitar evaluación
+            </span>
+          </div>
           <div className="grid grid-cols-[1.25fr_0.7fr_0.4fr_0.48fr] border-b border-[#57715a]/12 bg-[#edf0eb] px-2 py-1.5 text-[6px] font-semibold uppercase tracking-[0.07em] text-[#667269]/65 sm:text-[7px]">
             <span>Plan de evaluación</span>
             <span>Operación</span>
@@ -466,11 +462,11 @@ export default function DigiProyDemo() {
 
   return (
     <div
-      className="group/demo relative overflow-hidden rounded-2xl border border-white/[0.08] bg-[#070a0e] p-3 shadow-[0_28px_80px_rgba(0,0,0,0.34)] sm:p-4"
+      className="group/demo relative overflow-hidden rounded-[var(--radius-lg)] border border-[var(--border-strong)] bg-[var(--panel)] p-3 shadow-[0_28px_80px_rgba(0,0,0,0.34)] sm:p-4"
       onMouseEnter={() => setAutoPlay(false)}
       onMouseLeave={() => setAutoPlay(true)}
     >
-      <div className="pointer-events-none absolute -right-20 -top-24 h-64 w-64 rounded-full bg-emerald-500/[0.07] blur-[100px]" />
+      <div className="pointer-events-none absolute -right-20 -top-24 h-64 w-64 rounded-full bg-[var(--accent)]/[0.07] blur-[100px]" />
 
       <div className="relative mb-3 flex items-center justify-between px-1">
         <div className="flex items-center gap-2.5">
@@ -483,34 +479,33 @@ export default function DigiProyDemo() {
               duration: 2,
               repeat: Infinity,
             }}
-            className="h-2 w-2 rounded-full bg-emerald-400 shadow-[0_0_11px_rgba(52,211,153,0.75)]"
+            className="h-2 w-2 rounded-full bg-[var(--accent)] shadow-[0_0_11px_var(--accent-dim)]"
           />
 
           <div>
-            <p className="text-[9px] font-semibold uppercase tracking-[0.18em] text-emerald-300 sm:text-[10px]">
+            <p className="font-mono text-[9px] font-semibold uppercase tracking-[0.18em] text-[var(--accent)] sm:text-[10px]">
               DigiProy · Camposol
             </p>
-
           </div>
-          </div>
+        </div>
 
-      <div className="hidden items-center gap-2 sm:flex">
-  <motion.span
-    animate={{
-      opacity: [0.45, 1, 0.45],
-      scale: [0.9, 1, 0.9],
-    }}
-    transition={{
-      duration: 2,
-      repeat: Infinity,
-    }}
-    className="h-2 w-2 rounded-full bg-emerald-400 shadow-[0_0_11px_rgba(52,211,153,0.75)]"
-  />
+        <div className="hidden items-center gap-2 sm:flex">
+          <motion.span
+            animate={{
+              opacity: [0.45, 1, 0.45],
+              scale: [0.9, 1, 0.9],
+            }}
+            transition={{
+              duration: 2,
+              repeat: Infinity,
+            }}
+            className="h-2 w-2 rounded-full bg-[var(--accent)] shadow-[0_0_11px_var(--accent-dim)]"
+          />
 
-  <span className="text-[8px] font-medium text-zinc-300">
-    Producción
-  </span>
-</div>
+          <span className="text-[8px] font-medium text-[var(--muted)]">
+            Producción
+          </span>
+        </div>
 
         <div className="flex items-center gap-1.5">
           <button
@@ -519,7 +514,7 @@ export default function DigiProyDemo() {
             aria-label="Mostrar inicio de sesión"
             className={`h-1.5 rounded-full transition-all ${
               view === "login"
-                ? "w-7 bg-emerald-400"
+                ? "w-7 bg-[var(--accent)]"
                 : "w-1.5 bg-white/15 hover:bg-white/30"
             }`}
           />
@@ -530,7 +525,7 @@ export default function DigiProyDemo() {
             aria-label="Mostrar panel administrativo"
             className={`h-1.5 rounded-full transition-all ${
               view === "dashboard"
-                ? "w-7 bg-emerald-400"
+                ? "w-7 bg-[var(--accent)]"
                 : "w-1.5 bg-white/15 hover:bg-white/30"
             }`}
           />
@@ -538,29 +533,29 @@ export default function DigiProyDemo() {
       </div>
 
       <div className="relative">
-<div className="
+        <div
+          className="
 overflow-hidden
 rounded-[24px]
 border border-white/10
 bg-[#0c0f13]
 p-[10px]
 shadow-[0_30px_80px_rgba(0,0,0,.45)]
-">          
-
-          <div className="
+"
+        >
+          <div
+            className="
 relative
 overflow-hidden
 rounded-[18px]
 border
 border-white/5
 bg-black
-">
+"
+          >
             <AnimatePresence mode="wait">
               {view === "login" ? (
-                <LoginView
-                  key="login"
-                  onLogin={() => setView("dashboard")}
-                />
+                <LoginView key="login" onLogin={() => setView("dashboard")} />
               ) : (
                 <DashboardView
                   key="dashboard"
