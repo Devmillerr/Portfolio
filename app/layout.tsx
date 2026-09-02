@@ -1,19 +1,27 @@
-import type { Metadata } from "next";
-import { Inter } from "next/font/google";
-import "./globals.css";
+import type { Metadata, Viewport } from "next";
 
-const inter = Inter({
-  subsets: ["latin"],
-  display: "swap",
-});
+import "./globals.css";
+import "@fontsource-variable/instrument-sans";
+import "@fontsource-variable/space-grotesk";
+import "@fontsource-variable/jetbrains-mono";
+
+import CommandPalette from "@/components/command-palette";
+import LoadingScreen from "@/components/layout/LoadingScreen";
+import { TooltipProvider } from "@/components/ui/tooltip";
+import { CommandPaletteProvider } from "@/lib/command-palette-context";
+import { siteConfig } from "@/lib/constants";
+import QueryProvider from "@/lib/query-provider";
+
+const SITE_URL = siteConfig.url;
 
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
   title: {
-    default: "Miler Castro | Software Implementation Analyst",
-    template: "%s | Miler Castro",
+    default: `${siteConfig.name} | ${siteConfig.role}`,
+    template: `%s | ${siteConfig.name}`,
   },
   description:
-    "Portafolio profesional de Miler Castro, especializado en implementación de software, QA funcional y desarrollo Backend.",
+    "Portafolio profesional de Miler Castro: implementación de software, QA funcional y desarrollo backend orientados a resolver necesidades reales.",
   keywords: [
     "Miler Castro",
     "Software Implementation Analyst",
@@ -23,26 +31,32 @@ export const metadata: Metadata = {
     "TypeScript",
     "PostgreSQL",
   ],
-  authors: [{ name: "Miler Castro" }],
-  creator: "Miler Castro",
+  authors: [{ name: siteConfig.name }],
+  creator: siteConfig.name,
   openGraph: {
     type: "website",
     locale: "es_PE",
-    title: "Miler Castro | Software Implementation Analyst",
+    url: SITE_URL,
+    title: `${siteConfig.name} | ${siteConfig.role}`,
     description:
-      "Implementación de software, QA funcional y desarrollo Backend orientados a resolver necesidades reales.",
-    siteName: "Portfolio de Miler Castro",
+      "Implementación de software, QA funcional y desarrollo backend orientados a resolver necesidades reales.",
+    siteName: `Portfolio de ${siteConfig.name}`,
   },
   twitter: {
-    card: "summary",
-    title: "Miler Castro | Software Implementation Analyst",
+    card: "summary_large_image",
+    title: `${siteConfig.name} | ${siteConfig.role}`,
     description:
-      "Implementación de software, QA funcional y desarrollo Backend orientados a resolver necesidades reales.",
+      "Implementación de software, QA funcional y desarrollo backend orientados a resolver necesidades reales.",
   },
   robots: {
     index: true,
     follow: true,
   },
+};
+
+export const viewport: Viewport = {
+  themeColor: "#0a0813",
+  colorScheme: "dark",
 };
 
 export default function RootLayout({
@@ -52,11 +66,24 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="es" suppressHydrationWarning>
-      <body
-        suppressHydrationWarning
-        className={`${inter.className} bg-[#08090c] text-white antialiased`}
-      >
-        {children}
+      <body suppressHydrationWarning className="bg-background text-foreground antialiased">
+        <LoadingScreen />
+
+        <a
+          href="#main"
+          className="fixed left-3 top-3 z-[10020] -translate-y-24 rounded-[var(--radius-sm)] border border-[var(--border-strong)] bg-[var(--surface)] px-4 py-2 text-sm font-medium text-[var(--foreground)] transition-transform focus:translate-y-0"
+        >
+          Saltar al contenido
+        </a>
+
+        <QueryProvider>
+          <TooltipProvider delayDuration={200}>
+            <CommandPaletteProvider>
+              {children}
+              <CommandPalette />
+            </CommandPaletteProvider>
+          </TooltipProvider>
+        </QueryProvider>
       </body>
     </html>
   );
