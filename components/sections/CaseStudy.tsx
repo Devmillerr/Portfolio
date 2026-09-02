@@ -6,704 +6,31 @@ import {
   ArrowRight,
   Building2,
   Check,
-  ClipboardCheck,
-  Code2,
   FileCheck2,
-  GitBranch,
-  Layers3,
   MonitorSmartphone,
-  Rocket,
-  Search,
-  TrendingUp,
-  Users,
 } from "lucide-react";
 
-type Accent = "red" | "blue" | "emerald";
+import { EASE } from "@/lib/motion";
 
-type Stage = {
-  number: string;
-  label: string;
-  title: string;
-  description: string;
-  accent: Accent;
-  items: string[];
-};
-
-const stages: Stage[] = [
-  {
-    number: "01",
-    label: "Antes",
-    title: "Procesos manuales",
-    description: "Los registros operativos se completaban en formatos físicos.",
-    accent: "red",
-    items: [
-      "Información dispersa",
-      "Errores y duplicidad",
-      "Baja trazabilidad",
-    ],
-  },
-  {
-    number: "02",
-    label: "Solución",
-    title: "Análisis e implementación",
-    description:
-      "Convertí los procesos en cartillas digitales con reglas, validaciones y flujos operativos.",
-    accent: "blue",
-    items: [
-      "Análisis de requerimientos",
-      "Pruebas funcionales en PDA",
-      "Despliegue y capacitación",
-    ],
-  },
-  {
-    number: "03",
-    label: "Resultado",
-    title: "Operación optimizada",
-    description:
-      "La información quedó organizada, disponible y lista para seguimiento.",
-    accent: "emerald",
-    items: [
-      "Menos retrabajo",
-      "Mayor calidad de datos",
-      "Mejor control operativo",
-    ],
-  },
-];
-
-const metrics = [
-  {
-    value: "60+",
-    label: "Procesos digitalizados",
-    icon: TrendingUp,
-  },
-  {
-    value: "50+",
-    label: "Usuarios capacitados",
-    icon: Users,
-  },
-  {
-    value: "3+",
-    label: "Áreas impactadas",
-    icon: Layers3,
-  },
-];
-
-const editorialSteps = [
-  {
-    number: "01",
-    label: "Problema",
-    title: "Registros físicos y procesos manuales.",
-    description:
-      "Información dispersa, duplicidad, baja trazabilidad y mayor tiempo de revisión.",
-    icon: FileCheck2,
-  },
-  {
-    number: "02",
-    label: "Análisis",
-    title: "Necesidades convertidas en requerimientos.",
-    description:
-      "Usuarios, campos, responsables, reglas de negocio y puntos críticos.",
-    icon: Search,
-  },
-  {
-    number: "03",
-    label: "Diseño",
-    title: "Estructura digital adaptable.",
-    description:
-      "Cartillas por proceso, listas, validaciones, cálculos y flujos operativos.",
-    icon: GitBranch,
-  },
-  {
-    number: "04",
-    label: "Implementación",
-    title: "Solución construida en DigiProy.",
-    description:
-      "Formularios digitales, reglas, accesos, sincronización y funcionamiento en PDA.",
-    icon: Code2,
-  },
-  {
-    number: "05",
-    label: "QA",
-    title: "Validación en condiciones reales.",
-    description:
-      "Pruebas funcionales, cálculos, incidencias, correcciones y nuevas validaciones.",
-    icon: ClipboardCheck,
-  },
-  {
-    number: "06",
-    label: "Producción",
-    title: "Despliegue y adopción.",
-    description: "Pase a producción, capacitación, soporte y mejora continua.",
-    icon: Rocket,
-  },
-  {
-    number: "07",
-    label: "Impacto",
-    title: "Operación digital y centralizada.",
-    description:
-      "60+ procesos, 50+ usuarios, 3+ áreas, mayor trazabilidad y menos retrabajo.",
-    icon: TrendingUp,
-  },
-];
-
-const containerVariants = {
-  hidden: {},
-  visible: {
-    transition: {
-      staggerChildren: 0.12,
-    },
-  },
-};
-
-const itemVariants = {
-  hidden: {
-    opacity: 0,
-    y: 22,
-  },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.6,
-      ease: [0.22, 1, 0.36, 1] as const,
-    },
-  },
-};
-
-function getStageStyles(accent: Accent) {
-  if (accent === "red") {
-    return {
-      border: "border-red-500/25 hover:border-red-400/45",
-      badge: "border-red-400/25 bg-red-500/[0.09] text-red-400",
-      text: "text-red-400",
-      icon: "bg-red-500/[0.1] text-red-400",
-      glow: "bg-red-500/[0.08]",
-      line: "from-red-400 to-orange-400",
-      connector: "border-red-400/25 bg-red-500/[0.08] text-red-400",
-    };
-  }
-
-  if (accent === "emerald") {
-    return {
-      border: "border-emerald-500/25 hover:border-emerald-400/45",
-      badge: "border-emerald-400/25 bg-emerald-500/[0.09] text-emerald-400",
-      text: "text-emerald-400",
-      icon: "bg-emerald-500/[0.1] text-emerald-400",
-      glow: "bg-emerald-500/[0.08]",
-      line: "from-emerald-400 to-cyan-400",
-      connector: "border-emerald-400/25 bg-emerald-500/[0.08] text-emerald-400",
-    };
-  }
-
-  return {
-    border: "border-blue-500/25 hover:border-blue-400/45",
-    badge: "border-blue-400/25 bg-blue-500/[0.09] text-blue-400",
-    text: "text-blue-400",
-    icon: "bg-blue-500/[0.1] text-blue-400",
-    glow: "bg-blue-500/[0.08]",
-    line: "from-blue-400 to-cyan-400",
-    connector: "border-blue-400/25 bg-blue-500/[0.08] text-blue-400",
-  };
-}
-
-function ManualProcessVisual() {
-  return (
-    <div className="relative h-[106px] overflow-hidden rounded-2xl border border-red-500/15 bg-gradient-to-br from-red-500/[0.055] via-white/[0.012] to-transparent px-4 py-3">
-      <div className="pointer-events-none absolute -right-8 -top-8 h-24 w-24 rounded-full bg-red-500/[0.1] blur-3xl" />
-
-      <div className="absolute inset-x-5 bottom-3 h-px bg-gradient-to-r from-transparent via-red-400/15 to-transparent" />
-
-      <motion.div
-        animate={{
-          y: [0, -2, 0],
-          rotate: [-0.5, 0.5, -0.5],
-        }}
-        transition={{
-          duration: 5,
-          repeat: Infinity,
-          ease: "easeInOut",
-        }}
-        className="relative mx-auto h-full max-w-[230px]"
-      >
-        <div className="absolute left-6 top-2 h-[69px] w-[112px] -rotate-[6deg] rounded-xl border border-white/[0.08] bg-[#101319] shadow-[0_18px_45px_rgba(0,0,0,0.35)]">
-          <div className="flex items-center gap-1.5 border-b border-white/[0.06] px-3 py-2">
-            <span className="h-1.5 w-1.5 rounded-full bg-red-400/70" />
-            <span className="h-1.5 w-8 rounded-full bg-white/[0.1]" />
-          </div>
-
-          <div className="space-y-2 px-3 py-2.5">
-            <span className="block h-1.5 w-full rounded-full bg-white/[0.07]" />
-            <span className="block h-1.5 w-[78%] rounded-full bg-white/[0.07]" />
-            <span className="block h-1.5 w-[58%] rounded-full bg-white/[0.07]" />
-          </div>
-        </div>
-
-        <div className="absolute right-6 top-3 h-[72px] w-[116px] rotate-[5deg] rounded-xl border border-red-400/20 bg-[#161116] shadow-[0_20px_45px_rgba(0,0,0,0.4)]">
-          <div className="flex items-center justify-between border-b border-white/[0.06] px-3 py-2">
-            <span className="h-1.5 w-9 rounded-full bg-white/[0.12]" />
-
-            <span className="flex h-4 w-4 items-center justify-center rounded-md bg-red-500/15 text-red-400">
-              <AlertTriangle size={9} />
-            </span>
-          </div>
-
-          <div className="space-y-2 px-3 py-2.5">
-            <div className="flex items-center gap-2">
-              <span className="h-2 w-2 rounded-full border border-red-400/40" />
-              <span className="h-1.5 flex-1 rounded-full bg-white/[0.07]" />
-            </div>
-
-            <div className="flex items-center gap-2">
-              <span className="h-2 w-2 rounded-full border border-red-400/40" />
-              <span className="h-1.5 w-[70%] rounded-full bg-white/[0.07]" />
-            </div>
-
-            <div className="flex items-center gap-2">
-              <span className="h-2 w-2 rounded-full border border-red-400/40" />
-              <span className="h-1.5 w-[48%] rounded-full bg-white/[0.07]" />
-            </div>
-          </div>
-        </div>
-
-        <motion.span
-          animate={{
-            scale: [1, 1.08, 1],
-            boxShadow: [
-              "0 0 0 rgba(248,113,113,0)",
-              "0 0 24px rgba(248,113,113,0.18)",
-              "0 0 0 rgba(248,113,113,0)",
-            ],
-          }}
-          transition={{
-            duration: 2.3,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-          className="absolute bottom-0 right-1 flex h-8 w-8 items-center justify-center rounded-xl border border-red-400/25 bg-[#1a1014] text-red-400"
-        >
-          <AlertTriangle size={14} />
-        </motion.span>
-      </motion.div>
-    </div>
-  );
-}
-
-function DigitalSolutionVisual() {
-  return (
-    <div className="relative h-[106px] overflow-hidden rounded-2xl border border-blue-500/15 bg-gradient-to-br from-blue-500/[0.06] via-white/[0.012] to-transparent px-4 py-3">
-      <div className="pointer-events-none absolute -left-5 -top-10 h-28 w-28 rounded-full bg-blue-500/[0.11] blur-3xl" />
-
-      <div className="relative mx-auto flex h-full max-w-[240px] items-center justify-center gap-8">
-        <motion.div
-          animate={{
-            y: [0, -2, 0],
-          }}
-          transition={{
-            duration: 3.5,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-          className="relative z-10"
-        >
-          <div className="h-[72px] w-[118px] rounded-xl border border-blue-400/25 bg-[#0d1522] p-2 shadow-[0_20px_50px_rgba(14,87,171,0.2)]">
-            <div className="flex h-full flex-col rounded-lg border border-white/[0.06] bg-[#0b1018]">
-              <div className="flex items-center gap-1.5 border-b border-white/[0.06] px-2 py-1.5">
-                <span className="h-1.5 w-1.5 rounded-full bg-blue-400" />
-                <span className="h-1.5 w-7 rounded-full bg-white/[0.1]" />
-                <span className="ml-auto h-1.5 w-1.5 rounded-full bg-emerald-400/70" />
-              </div>
-
-              <div className="flex flex-1 gap-2 px-2 py-2">
-                <div className="w-5 space-y-1">
-                  <span className="block h-4 rounded bg-blue-500/15" />
-                  <span className="block h-4 rounded bg-white/[0.04]" />
-                </div>
-
-                <div className="flex-1 space-y-1.5">
-                  <span className="block h-1.5 w-full rounded-full bg-white/[0.08]" />
-                  <span className="block h-1.5 w-[72%] rounded-full bg-white/[0.08]" />
-
-                  <div className="flex items-center gap-1.5 pt-1">
-                    <span className="block h-3 w-8 rounded bg-blue-500/20" />
-                    <span className="block h-3 w-5 rounded bg-white/[0.05]" />
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="mx-auto h-2 w-7 rounded-b bg-blue-400/30" />
-        </motion.div>
-
-        <div className="pointer-events-none absolute left-[114px] top-1/2 h-px w-[46px] overflow-hidden bg-blue-400/15">
-          <motion.span
-            animate={{
-              x: [-20, 52],
-            }}
-            transition={{
-              duration: 1.6,
-              repeat: Infinity,
-              ease: "linear",
-            }}
-            className="block h-full w-5 bg-gradient-to-r from-transparent via-blue-400 to-transparent"
-          />
-        </div>
-
-        <motion.div
-          animate={{
-            y: [0, 3, 0],
-          }}
-          transition={{
-            duration: 3,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-          className="relative z-10 h-[80px] w-[43px] rounded-[13px] border border-blue-400/30 bg-[#0c1420] p-1.5 shadow-[0_15px_35px_rgba(14,87,171,0.24)]"
-        >
-          <div className="flex h-full flex-col rounded-[9px] border border-white/[0.07] bg-[#091019]">
-            <div className="mx-auto mt-1 h-1 w-2.5 rounded-full bg-white/[0.12]" />
-
-            <div className="flex flex-1 items-center justify-center">
-              <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-blue-500/15 text-blue-400">
-                <ClipboardCheck size={15} />
-              </span>
-            </div>
-
-            <span className="mx-auto mb-1 h-1.5 w-1.5 rounded-full border border-blue-400/30" />
-          </div>
-
-          <motion.span
-            animate={{
-              opacity: [0.35, 1, 0.35],
-              scale: [0.8, 1, 0.8],
-            }}
-            transition={{
-              duration: 1.8,
-              repeat: Infinity,
-            }}
-            className="absolute -right-1 top-3 h-2 w-2 rounded-full bg-blue-400 shadow-[0_0_12px_rgba(96,165,250,0.8)]"
-          />
-        </motion.div>
-      </div>
-    </div>
-  );
-}
-
-function ResultVisual() {
-  const bars = [13, 21, 29, 38, 47];
-
-  return (
-    <div className="relative h-[106px] overflow-hidden rounded-2xl border border-emerald-500/15 bg-gradient-to-br from-emerald-500/[0.06] via-white/[0.012] to-transparent px-4 py-3">
-      <div className="pointer-events-none absolute -right-5 -top-10 h-28 w-28 rounded-full bg-emerald-500/[0.11] blur-3xl" />
-
-      <div className="relative mx-auto flex h-full max-w-[240px] items-center justify-center">
-        <div className="relative flex h-[78px] w-[190px] flex-col rounded-xl border border-emerald-400/20 bg-[#0b1513] p-3 shadow-[0_20px_45px_rgba(5,150,105,0.14)]">
-          <div className="flex items-center justify-between">
-            <div>
-              <span className="block h-1.5 w-10 rounded-full bg-white/[0.12]" />
-              <span className="mt-1.5 block h-1 w-16 rounded-full bg-white/[0.05]" />
-            </div>
-
-            <span className="flex h-6 w-6 items-center justify-center rounded-lg bg-emerald-500/15 text-emerald-400">
-              <TrendingUp size={12} />
-            </span>
-          </div>
-
-          <div className="relative mt-auto flex h-[40px] items-end gap-2">
-            {bars.map((height, index) => (
-              <motion.span
-                key={height}
-                initial={{
-                  height: 0,
-                  opacity: 0,
-                }}
-                whileInView={{
-                  height,
-                  opacity: 1,
-                }}
-                viewport={{ once: true }}
-                transition={{
-                  duration: 0.65,
-                  delay: index * 0.09,
-                  ease: [0.22, 1, 0.36, 1],
-                }}
-                className="relative flex-1 rounded-t-[4px] bg-gradient-to-t from-emerald-600/55 to-emerald-400"
-              >
-                <span className="absolute inset-x-0 top-0 h-px bg-white/30" />
-              </motion.span>
-            ))}
-
-            <svg
-              viewBox="0 0 160 42"
-              className="pointer-events-none absolute inset-0 h-full w-full overflow-visible"
-              preserveAspectRatio="none"
-            >
-              <motion.path
-                d="M3 36 C24 32, 43 30, 63 24 S103 19, 157 4"
-                fill="none"
-                stroke="rgb(52 211 153)"
-                strokeWidth="2"
-                strokeLinecap="round"
-                initial={{
-                  pathLength: 0,
-                  opacity: 0,
-                }}
-                whileInView={{
-                  pathLength: 1,
-                  opacity: 1,
-                }}
-                viewport={{ once: true }}
-                transition={{
-                  duration: 1.25,
-                  delay: 0.3,
-                  ease: [0.22, 1, 0.36, 1],
-                }}
-              />
-            </svg>
-          </div>
-        </div>
-
-        <motion.span
-          animate={{
-            scale: [1, 1.08, 1],
-            boxShadow: [
-              "0 0 0 rgba(52,211,153,0)",
-              "0 0 25px rgba(52,211,153,0.16)",
-              "0 0 0 rgba(52,211,153,0)",
-            ],
-          }}
-          transition={{
-            duration: 2.2,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-          className="absolute right-1 top-0 flex h-9 w-9 items-center justify-center rounded-xl border border-emerald-400/25 bg-[#0d1c18] text-emerald-400"
-        >
-          <Check size={17} strokeWidth={3} />
-        </motion.span>
-      </div>
-    </div>
-  );
-}
-
-function StageVisual({ accent }: { accent: Accent }) {
-  if (accent === "red") {
-    return <ManualProcessVisual />;
-  }
-
-  if (accent === "blue") {
-    return <DigitalSolutionVisual />;
-  }
-
-  return <ResultVisual />;
-}
-
-function EditorialJourney() {
-  return (
-    <div className="mt-16 border-t border-white/[0.07] pt-14 sm:mt-20 sm:pt-16">
-      {/* Encabezado */}
-      <motion.div
-        initial={{
-          opacity: 0,
-          y: 20,
-        }}
-        whileInView={{
-          opacity: 1,
-          y: 0,
-        }}
-        viewport={{
-          once: true,
-          amount: 0.25,
-        }}
-        transition={{
-          duration: 0.6,
-          ease: [0.22, 1, 0.36, 1],
-        }}
-        className="max-w-[520px]"
-      >
-        <div>
-          <div className="flex items-center gap-3">
-            <span className="h-px w-8 bg-blue-400" />
-
-            <p className="text-[9px] font-semibold uppercase tracking-[0.26em] text-blue-300 sm:text-[10px]">
-              El proceso detrás
-            </p>
-          </div>
-
-          <h3 className="mt-4 max-w-[430px] text-[1.75rem] font-extrabold leading-[1.08] tracking-[-0.04em] text-white sm:text-[2.1rem]">
-            De la necesidad a producción.
-          </h3>
-        </div>
-      </motion.div>
-
-      {/* Contenido */}
-      <div
-        className="grid
-    gap-12
-    lg:grid-cols-[320px_minmax(0,1fr)]
-    lg:gap-20
-    xl:grid-cols-[360px_minmax(0,1fr)]
-    xl:gap-28"
-      >
-        {/* Información lateral */}
-        <motion.aside
-          initial={{
-            opacity: 0,
-            y: 14,
-          }}
-          whileInView={{
-            opacity: 1,
-            y: 0,
-          }}
-          viewport={{
-            once: true,
-            amount: 0.3,
-          }}
-          transition={{
-            duration: 0.5,
-          }}
-          className="mt-10 h-fit lg:sticky lg:top-28"
-        >
-          <p className="text-[9px] font-semibold uppercase tracking-[0.22em] text-blue-300/75 sm:text-[10px]">
-            Mi participación
-          </p>
-
-          <p className="mt-2 text-[13px] font-medium leading-5 text-zinc-400">
-            Ciclo completo de la solución.
-          </p>
-
-          <div className="mt-5 flex items-center gap-3">
-            <span className="h-px w-8 bg-blue-400/40" />
-
-            <span className="text-[9px] font-medium uppercase tracking-[0.18em] text-zinc-600">
-              De principio a fin
-            </span>
-          </div>
-
-          <p className="mt-5 max-w-[210px] text-[12px] leading-6 text-zinc-500">
-            Análisis, diseño, implementación, QA y mejora continua aplicados a
-            una operación industrial real.
-          </p>
-        </motion.aside>
-
-        {/* Línea de tiempo */}
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{
-            once: true,
-            amount: 0.08,
-          }}
-          className="relative lg:-mt-25"
-        >
-          {/* Línea vertical */}
-          <div className="absolute bottom-0 left-[18px] top-0 w-px bg-gradient-to-b from-blue-400/40 via-blue-400/15 to-transparent sm:left-[21px]" />
-
-          {editorialSteps.map((step, index) => {
-            const Icon = step.icon;
-            const isLast = index === editorialSteps.length - 1;
-
-            return (
-              <motion.article
-                key={step.number}
-                variants={itemVariants}
-                className="
-                  group
-                  relative
-                  grid
-                  grid-cols-[38px_1fr]
-                  gap-5
-                  sm:grid-cols-[44px_1fr]
-                  sm:gap-6
-                "
-              >
-                {/* Icono */}
-                <motion.div
-                  whileHover={{
-                    scale: 1.07,
-                    rotate: -3,
-                  }}
-                  transition={{
-                    type: "spring",
-                    stiffness: 280,
-                    damping: 20,
-                  }}
-                  className="
-                    relative
-                    z-10
-                    flex
-                    h-[38px]
-                    w-[38px]
-                    items-center
-                    justify-center
-                    rounded-xl
-                    border
-                    border-white/[0.08]
-                    bg-[#0d1118]
-                    text-blue-400
-                    shadow-[0_10px_30px_rgba(0,0,0,0.25)]
-                    transition-colors
-                    duration-300
-                    group-hover:border-blue-400/35
-                    group-hover:bg-blue-500/[0.09]
-                    sm:h-11
-                    sm:w-11
-                  "
-                >
-                  <Icon size={16} />
-                </motion.div>
-
-                {/* Información */}
-                <div
-                  className={`
-                    ${
-                      isLast
-                        ? "pb-0"
-                        : "mb-7 border-b border-white/[0.055] pb-7"
-                    }
-                  `}
-                >
-                  <div className="flex flex-wrap items-center gap-3">
-                    <span className="text-[9px] font-semibold tracking-[0.18em] text-blue-400/60">
-                      {step.number}
-                    </span>
-
-                    <span className="text-[9px] font-semibold uppercase tracking-[0.22em] text-blue-300 sm:text-[10px]">
-                      {step.label}
-                    </span>
-                  </div>
-
-                  <h4 className="mt-2.5 max-w-[650px] text-[17px] font-bold leading-tight tracking-[-0.025em] text-white transition-colors duration-300 group-hover:text-blue-100 sm:text-lg">
-                    {step.title}
-                  </h4>
-
-                  <p className="mt-2 max-w-[680px] text-[12px] leading-[1.7] text-zinc-500 transition-colors duration-300 group-hover:text-zinc-400 sm:text-[13px]">
-                    {step.description}
-                  </p>
-                </div>
-              </motion.article>
-            );
-          })}
-        </motion.div>
-      </div>
-    </div>
-  );
-}
+import { FlowDiagram } from "./case-study/FlowDiagram";
+import { metrics, stages } from "./case-study/data";
+import { EditorialJourney } from "./case-study/EditorialJourney";
+import { containerVariants, itemVariants } from "./case-study/motion-variants";
+import { getStageStyles, StageVisual } from "./case-study/stage-visuals";
 
 export default function CaseStudy() {
   return (
     <section
       id="case-study"
-      className="relative overflow-hidden border-b border-white/[0.07] bg-[#0b0e13] py-10 text-white sm:py-12 lg:pb-16 lg:pt-8"
+      className="relative overflow-hidden border-b border-[var(--border)] bg-[var(--background)] py-16 text-[var(--foreground)] sm:py-20 lg:py-24"
     >
       {/* Fondo decorativo */}
       <div className="pointer-events-none absolute inset-0">
-        <div className="absolute right-[-150px] top-[-180px] h-[360px] w-[360px] rounded-full bg-blue-500/[0.045] blur-[120px]" />
+        <div className="absolute right-[-150px] top-[-180px] h-[360px] w-[360px] rounded-full bg-[var(--accent)]/[0.05] blur-[120px]" />
 
-        <div className="absolute bottom-[-190px] left-[-170px] h-[340px] w-[340px] rounded-full bg-emerald-500/[0.025] blur-[120px]" />
+        <div className="absolute bottom-[-190px] left-[-170px] h-[340px] w-[340px] rounded-full bg-[var(--accent)]/[0.03] blur-[120px]" />
 
-        <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-blue-400/25 to-transparent" />
+        <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[var(--accent)]/25 to-transparent" />
 
         <div
           className="absolute inset-0 opacity-[0.022]"
@@ -732,24 +59,20 @@ export default function CaseStudy() {
           }}
           transition={{
             duration: 0.65,
-            ease: [0.22, 1, 0.36, 1],
+            ease: EASE,
           }}
           className="grid items-end gap-5 lg:grid-cols-[1fr_auto]"
         >
           <div>
-            <div className="flex items-center gap-3">
-              <span className="h-px w-8 bg-blue-400" />
+            <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-[var(--accent)]">
+              03 · Caso de estudio
+            </p>
 
-              <p className="text-[10px] font-semibold uppercase tracking-[0.28em] text-blue-300 sm:text-[11px]">
-                Caso de estudio
-              </p>
-            </div>
-
-            <h2 className="mt-2 max-w-[900px] text-[2rem] font-extrabold leading-[1.05] tracking-[-0.045em] sm:text-[2.35rem] lg:text-[2.55rem]">
+            <h2 className="mt-3 max-w-[900px] font-display text-[1.8rem] font-semibold uppercase leading-[1.14] tracking-[0.015em] sm:text-[2.2rem] lg:text-[2.5rem]">
               60+ procesos digitalizados.
             </h2>
 
-            <p className="mt-3 max-w-[690px] text-sm leading-6 text-zinc-400 sm:text-[15px]">
+            <p className="mt-3 max-w-[690px] text-[15px] leading-6 text-[var(--muted)]">
               Transformé registros manuales en soluciones digitales utilizadas
               diariamente en planta.
             </p>
@@ -757,25 +80,24 @@ export default function CaseStudy() {
 
           {/* Empresa */}
           <motion.div
-            whileHover={{
-              y: -2,
-              borderColor: "rgba(96,165,250,0.22)",
-            }}
-            className="inline-flex w-fit items-center gap-3 rounded-2xl border border-white/[0.08] bg-white/[0.018] px-3.5 py-2.5 shadow-[0_15px_40px_rgba(0,0,0,0.14)]"
+            whileHover={{ y: -2 }}
+            className="inline-flex w-fit items-center gap-3 rounded-[var(--radius-lg)] border border-[var(--border-strong)] bg-white/[0.015] px-3.5 py-2.5 shadow-[0_15px_40px_rgba(0,0,0,0.14)] transition-colors duration-200 hover:border-[var(--accent)]/30"
           >
-            <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-blue-500/[0.09] text-blue-400">
+            <span className="flex h-9 w-9 items-center justify-center rounded-[var(--radius-sm)] bg-[var(--accent-dim)] text-[var(--accent)]">
               <Building2 size={18} />
             </span>
 
             <div>
-              <p className="text-sm font-semibold text-white">Camposol S.A.</p>
+              <p className="text-sm font-semibold text-[var(--foreground)]">Camposol S.A.</p>
 
-              <p className="mt-0.5 text-[11px] text-zinc-500">
+              <p className="mt-0.5 text-[11px] text-[var(--muted)]">
                 Producción · Calidad · Operaciones
               </p>
             </div>
           </motion.div>
         </motion.div>
+
+        <FlowDiagram />
 
         {/* Flujo principal */}
         <motion.div
@@ -839,11 +161,11 @@ export default function CaseStudy() {
                       </span>
                     </div>
 
-                    <h3 className="mt-4 text-lg font-bold tracking-[-0.03em] text-white">
+                    <h3 className="mt-4 text-lg font-bold tracking-[-0.03em] text-[var(--foreground)]">
                       {stage.title}
                     </h3>
 
-                    <p className="mt-2 min-h-[42px] max-w-[310px] text-[12px] leading-[1.65] text-zinc-500">
+                    <p className="mt-2 min-h-[42px] max-w-[310px] text-[12px] leading-[1.65] text-[var(--muted)]">
                       {stage.description}
                     </p>
 
@@ -872,7 +194,7 @@ export default function CaseStudy() {
                             )}
                           </span>
 
-                          <p className="text-[12px] text-zinc-400 transition-colors duration-300 group-hover:text-zinc-300">
+                          <p className="text-[12px] text-[var(--muted)] transition-colors duration-300 group-hover:text-[var(--foreground)]/80">
                             {item}
                           </p>
                         </motion.div>
@@ -917,7 +239,7 @@ export default function CaseStudy() {
                         repeat: Infinity,
                         ease: "easeInOut",
                       }}
-                      className="flex h-7 w-7 rotate-90 items-center justify-center rounded-full border border-blue-400/20 bg-blue-500/[0.07] text-blue-400"
+                      className="flex h-7 w-7 rotate-90 items-center justify-center rounded-full border border-[var(--accent)]/20 bg-[var(--accent-dim)] text-[var(--accent)]"
                     >
                       <ArrowRight size={12} />
                     </motion.div>
@@ -945,9 +267,9 @@ export default function CaseStudy() {
           transition={{
             duration: 0.6,
             delay: 0.12,
-            ease: [0.22, 1, 0.36, 1],
+            ease: EASE,
           }}
-          className="mt-4 grid overflow-hidden rounded-[16px] border border-white/[0.08] bg-white/[0.018] shadow-[0_14px_40px_rgba(0,0,0,0.12)] sm:grid-cols-3"
+          className="mt-4 grid overflow-hidden rounded-[16px] border border-[var(--border-strong)] bg-white/[0.015] shadow-[0_14px_40px_rgba(0,0,0,0.12)] sm:grid-cols-3"
         >
           {metrics.map((metric, index) => {
             const Icon = metric.icon;
@@ -956,11 +278,11 @@ export default function CaseStudy() {
               <motion.div
                 key={metric.label}
                 whileHover={{
-                  backgroundColor: "rgba(59, 130, 246, 0.035)",
+                  backgroundColor: "rgba(178, 102, 255, 0.035)",
                 }}
                 className={`group flex min-h-[54px] items-center gap-3 px-4 py-2 ${
                   index !== metrics.length - 1
-                    ? "border-b border-white/[0.07] sm:border-b-0 sm:border-r"
+                    ? "border-b border-[var(--border)] sm:border-b-0 sm:border-r"
                     : ""
                 }`}
               >
@@ -969,17 +291,17 @@ export default function CaseStudy() {
                     scale: 1.08,
                     rotate: 3,
                   }}
-                  className="flex h-8 w-8 shrink-0 items-center justify-center rounded-[10px] bg-blue-500/[0.09] text-blue-400 transition-colors duration-300 group-hover:bg-blue-500/[0.14]"
+                  className="flex h-8 w-8 shrink-0 items-center justify-center rounded-[10px] bg-[var(--accent-dim)] text-[var(--accent)] transition-colors duration-300 group-hover:bg-[var(--accent-dim)]"
                 >
                   <Icon size={16} />
                 </motion.span>
 
                 <div className="min-w-0">
-                  <p className="text-[1.2rem] font-bold leading-none tracking-[-0.04em] text-white">
+                  <p className="text-[1.2rem] font-bold leading-none tracking-[-0.04em] text-[var(--foreground)]">
                     {metric.value}
                   </p>
 
-                  <p className="mt-1 truncate text-[10px] leading-none text-zinc-500">
+                  <p className="mt-1 truncate text-[10px] leading-none text-[var(--muted)]">
                     {metric.label}
                   </p>
                 </div>
