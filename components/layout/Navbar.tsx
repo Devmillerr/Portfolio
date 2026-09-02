@@ -6,13 +6,18 @@ import {
   useMotionValueEvent,
   useScroll,
 } from "framer-motion";
-import { ArrowUpRight, Download, Menu, X } from "lucide-react";
+import { ArrowUpRight, Download, Menu, Search, X } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
+import { Button } from "@/components/ui/button";
+import { useCommandPalette } from "@/lib/command-palette-context";
+import { siteConfig } from "@/lib/constants";
+import { EASE } from "@/lib/motion";
+
 const links = [
-  { label: "Perfil", href: "/#profile" },
+  { label: "Enfoque", href: "/#profile" },
   { label: "Caso de estudio", href: "/#case-study" },
   { label: "Experiencia", href: "/#experience" },
   { label: "Proyectos", href: "/#projects" },
@@ -22,25 +27,22 @@ const links = [
 export default function Navbar() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [cvHovered, setCvHovered] = useState(false);
+  const { toggle: toggleCommandPalette } = useCommandPalette();
 
   const { scrollY } = useScroll();
 
   useMotionValueEvent(scrollY, "change", (latest) => {
-    setScrolled(latest > 24);
+    setScrolled(latest > 20);
   });
 
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
 
     const onKey = (event: KeyboardEvent) => {
-      if (event.key === "Escape") {
-        setOpen(false);
-      }
+      if (event.key === "Escape") setOpen(false);
     };
 
     window.addEventListener("keydown", onKey);
-
     return () => {
       document.body.style.overflow = "";
       window.removeEventListener("keydown", onKey);
@@ -48,52 +50,42 @@ export default function Navbar() {
   }, [open]);
 
   return (
-    <header className="fixed inset-x-0 top-0 z-[9999] text-white">
+    <header className="fixed inset-x-0 top-0 z-[9999] text-[var(--foreground)]">
       <motion.div
         aria-hidden
         animate={{ opacity: scrolled ? 1 : 0 }}
         transition={{ duration: 0.25 }}
-        className="absolute inset-0 border-b border-white/[0.07] bg-[#08090c]/88 backdrop-blur-2xl"
+        className="absolute inset-0 border-b border-[var(--border)] bg-[var(--background)]/85 backdrop-blur-2xl"
       />
 
-      <motion.div
-        aria-hidden
-        animate={{ opacity: scrolled ? 1 : 0 }}
-        transition={{ duration: 0.25 }}
-        className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-blue-400/25 to-transparent"
-      />
-
-      <div className="relative mx-auto flex h-[76px] w-full max-w-[1180px] items-center px-5 sm:px-8 lg:px-10">
+      <div className="relative mx-auto flex h-[var(--shell-height,44px)] min-h-[64px] w-full max-w-[1180px] items-center px-5 sm:px-8 lg:px-10">
         <Link
           href="/#hero"
           aria-label="Ir al inicio"
-          className="group flex min-w-0 items-center gap-3.5"
+          className="group flex min-w-0 items-center gap-3"
         >
-          <span className="relative flex h-10 w-10 shrink-0 items-center justify-center overflow-hidden rounded-xl border border-white/10 bg-[#0d1016]/75 shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] backdrop-blur-md transition duration-300 group-hover:-translate-y-0.5 group-hover:border-blue-400/35 group-hover:shadow-[0_8px_24px_rgba(96,165,250,0.12)]">
-            <span className="absolute inset-0 bg-gradient-to-br from-blue-400/10 via-transparent to-cyan-400/10 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-
+          <span className="relative flex h-9 w-9 shrink-0 items-center justify-center overflow-hidden rounded-[10px] border border-[var(--border-strong)] bg-[var(--panel)] transition-colors duration-200 group-hover:border-[var(--accent)]/45">
             <Image
-              src="/favicon-mc.png"
+              src="/icon.png"
               alt=""
-              width={34}
-              height={34}
+              width={30}
+              height={30}
               priority
-              className="relative z-10 h-[34px] w-[34px] object-contain transition-transform duration-300 group-hover:scale-105"
+              className="relative z-10 h-[26px] w-[26px] object-contain"
             />
           </span>
 
-          <span className="min-w-0">
-            <span className="block truncate text-[15px] font-bold tracking-[-0.02em] text-zinc-100">
-              Devmillerr
+          <span className="min-w-0 leading-tight">
+            <span className="block truncate font-mono text-[13px] font-medium tracking-[-0.01em] text-[var(--foreground)]">
+              {siteConfig.handle}
             </span>
-
-            <span className="mt-0.5 hidden truncate text-[11px] text-zinc-500 sm:block">
-              Implementación · Backend · QA
+            <span className="mt-0.5 hidden truncate text-[11px] text-[var(--muted)] sm:block">
+              {siteConfig.role}
             </span>
           </span>
         </Link>
 
-        <div className="ml-auto hidden items-center gap-3 lg:flex">
+        <div className="ml-auto hidden items-center gap-1.5 lg:flex">
           <nav
             className="flex items-center gap-0.5"
             aria-label="Navegación principal"
@@ -102,129 +94,54 @@ export default function Navbar() {
               <Link
                 key={item.label}
                 href={item.href}
-                className="group relative px-2.5 py-2 text-[13px] font-medium text-zinc-500 transition-all duration-300 hover:text-white"
+                className="focus-ring group relative px-2.5 py-2 text-[13px] font-medium text-[var(--muted)] transition-colors duration-200 hover:text-[var(--foreground)]"
               >
-                <span className="relative z-10 transition-transform duration-300 group-hover:-translate-y-[1px]">
-                  {item.label}
-                </span>
-
-                <span className="absolute bottom-0 left-2 right-2 h-px origin-center scale-x-0 bg-gradient-to-r from-transparent via-blue-400 to-transparent transition-transform duration-300 group-hover:scale-x-100" />
+                {item.label}
+                <span className="absolute bottom-0 left-2.5 right-2.5 h-px origin-center scale-x-0 bg-[var(--accent)] transition-transform duration-200 group-hover:scale-x-100" />
               </Link>
             ))}
           </nav>
 
-          <motion.a
-            href="/cv-miler-castro.pdf"
-            download
-            aria-label="Descargar CV"
-            onHoverStart={() => setCvHovered(true)}
-            onHoverEnd={() => setCvHovered(false)}
-            whileHover={{ y: -1 }}
-            whileTap={{ scale: 0.98 }}
-            className="
-              group
-              relative
-              isolate
-              inline-flex
-              h-10
-              items-center
-              gap-2.5
-              overflow-hidden
-              rounded-xl
-              border
-              border-white/[0.07]
-              bg-white/[0.025]
-              px-4
-              text-[13px]
-              font-semibold
-              text-zinc-300
-              transition-colors
-              duration-300
-              hover:border-blue-400/25
-              hover:bg-blue-500/[0.08]
-              hover:text-white
-              hover:shadow-[0_10px_30px_rgba(59,130,246,0.10)]
-              focus-visible:outline-none
-              focus-visible:ring-2
-              focus-visible:ring-blue-400/40
-            "
+          <span className="mx-1.5 h-5 w-px bg-[var(--border)]" />
+
+          <button
+            type="button"
+            onClick={toggleCommandPalette}
+            className="focus-ring group inline-flex h-9 items-center gap-2 rounded-[var(--radius-sm)] border border-[var(--border-strong)] bg-white/[0.02] px-3 font-mono text-[11.5px] text-[var(--muted)] transition-colors duration-200 hover:border-[var(--accent)]/40 hover:text-[var(--foreground)]"
+            aria-label="Abrir el buscador de comandos"
           >
-            <span
-              aria-hidden
-              className="
-                pointer-events-none
-                absolute
-                -left-8
-                top-1/2
-                h-16
-                w-16
-                -translate-y-1/2
-                rounded-full
-                bg-blue-400/0
-                blur-2xl
-                transition-all
-                duration-500
-                group-hover:bg-blue-400/20
-              "
-            />
+            <Search size={13} strokeWidth={2} />
+            <span className="hidden xl:inline">Buscar</span>
+          </button>
 
-            <span
-              aria-hidden
-              className="
-                pointer-events-none
-                absolute
-                inset-y-0
-                left-[-40%]
-                w-12
-                -skew-x-12
-                bg-gradient-to-r
-                from-transparent
-                via-white/15
-                to-transparent
-                transition-all
-                duration-700
-                group-hover:left-[120%]
-              "
-            />
-
-            <span className="relative z-10 tracking-[-0.01em]">CV</span>
-
-            <span className="relative z-10 flex h-4 w-4 items-center justify-center overflow-hidden">
-              <motion.span
-                key={cvHovered ? "cv-hover" : "cv-rest"}
-                initial={
-                  cvHovered
-                    ? {
-                        y: -16,
-                        opacity: 0,
-                      }
-                    : false
-                }
-                animate={{
-                  y: 0,
-                  opacity: 1,
-                }}
-                transition={{
-                  duration: cvHovered ? 0.35 : 0,
-                  ease: [0.22, 1, 0.36, 1],
-                }}
-                className="absolute flex items-center justify-center"
-              >
-                <Download size={15} strokeWidth={2} className="text-blue-300" />
-              </motion.span>
-            </span>
-          </motion.a>
+          <Button asChild size="sm" variant="outline" className="ml-1">
+            <a href="/cv-miler-castro.pdf" download aria-label="Descargar CV">
+              CV
+              <Download size={13} className="text-[var(--accent)]" />
+            </a>
+          </Button>
         </div>
 
-        <button
-          type="button"
-          onClick={() => setOpen(true)}
-          aria-label="Abrir menú"
-          aria-expanded={open}
-          className="ml-auto flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-[#0d1016]/80 text-zinc-200 backdrop-blur-md transition active:scale-95 lg:hidden"
-        >
-          <Menu size={21} />
-        </button>
+        <div className="ml-auto flex items-center gap-2 lg:hidden">
+          <button
+            type="button"
+            onClick={toggleCommandPalette}
+            className="focus-ring flex h-9 w-9 items-center justify-center rounded-[10px] border border-[var(--border-strong)] bg-[var(--panel)] text-[var(--muted)]"
+            aria-label="Abrir el buscador de comandos"
+          >
+            <Search size={16} strokeWidth={2} />
+          </button>
+
+          <button
+            type="button"
+            onClick={() => setOpen(true)}
+            aria-label="Abrir menú"
+            aria-expanded={open}
+            className="focus-ring flex h-9 w-9 items-center justify-center rounded-[10px] border border-[var(--border-strong)] bg-[var(--panel)] text-[var(--foreground)] transition active:scale-95"
+          >
+            <Menu size={19} />
+          </button>
+        </div>
       </div>
 
       <AnimatePresence>
@@ -233,40 +150,34 @@ export default function Navbar() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[10000] bg-[#08090c] lg:hidden"
+            className="fixed inset-0 z-[10000] bg-[var(--background)] lg:hidden"
           >
             <div className="pointer-events-none absolute inset-0">
-              <div className="editorial-grid absolute inset-0 opacity-15" />
-
-              <div className="absolute left-1/2 top-[-180px] h-[380px] w-[380px] -translate-x-1/2 rounded-full bg-blue-500/[0.08] blur-[110px]" />
+              <div className="editorial-grid absolute inset-0 opacity-40" />
             </div>
 
-            <div className="relative mx-auto flex h-[76px] w-full max-w-[1180px] items-center justify-between border-b border-white/[0.07] px-5">
+            <div className="relative mx-auto flex h-16 w-full max-w-[1180px] items-center justify-between border-b border-[var(--border)] px-5">
               <Link
                 href="/#hero"
                 onClick={() => setOpen(false)}
                 className="flex items-center gap-3"
               >
-                <span className="relative flex h-10 w-10 shrink-0 items-center justify-center overflow-hidden rounded-xl border border-white/10 bg-white/[0.04]">
-                  <span className="absolute inset-0 bg-gradient-to-br from-blue-400/10 via-transparent to-cyan-400/10" />
-
+                <span className="relative flex h-9 w-9 shrink-0 items-center justify-center overflow-hidden rounded-[10px] border border-[var(--border-strong)] bg-[var(--panel)]">
                   <Image
-                    src="/favicon-mc.png"
+                    src="/icon.png"
                     alt=""
-                    width={34}
-                    height={34}
+                    width={30}
+                    height={30}
                     priority
-                    className="relative z-10 h-[34px] w-[34px] object-contain"
+                    className="relative z-10 h-[26px] w-[26px] object-contain"
                   />
                 </span>
-
                 <span>
-                  <span className="block text-[15px] font-bold">
-                    Miler Castro
+                  <span className="block text-[15px] font-semibold">
+                    {siteConfig.name}
                   </span>
-
-                  <span className="text-[11px] text-zinc-500">
-                    Software Implementation Analyst
+                  <span className="text-[11px] text-[var(--muted)]">
+                    {siteConfig.role}
                   </span>
                 </span>
               </Link>
@@ -275,21 +186,18 @@ export default function Navbar() {
                 type="button"
                 onClick={() => setOpen(false)}
                 aria-label="Cerrar menú"
-                className="flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-white/[0.035] text-zinc-200 transition active:scale-95"
+                className="focus-ring flex h-9 w-9 items-center justify-center rounded-[10px] border border-[var(--border-strong)] bg-[var(--panel)] text-[var(--foreground)] transition active:scale-95"
               >
-                <X size={21} />
+                <X size={19} />
               </button>
             </div>
 
             <motion.div
-              initial={{ y: 18, opacity: 0 }}
+              initial={{ y: 16, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
-              exit={{ y: 12, opacity: 0 }}
-              transition={{
-                duration: 0.3,
-                ease: [0.22, 1, 0.36, 1],
-              }}
-              className="relative mx-auto flex min-h-[calc(100dvh-76px)] w-full max-w-[1180px] flex-col px-5 pb-6 pt-4"
+              exit={{ y: 10, opacity: 0 }}
+              transition={{ duration: 0.25, ease: EASE }}
+              className="relative mx-auto flex min-h-[calc(100dvh-64px)] w-full max-w-[1180px] flex-col px-5 pb-6 pt-2"
             >
               <nav className="flex flex-col" aria-label="Navegación móvil">
                 {links.map((item, index) => (
@@ -297,19 +205,17 @@ export default function Navbar() {
                     key={item.label}
                     href={item.href}
                     onClick={() => setOpen(false)}
-                    className="group flex items-center justify-between border-b border-white/[0.07] py-4 text-[17px] font-semibold text-zinc-300 transition-colors hover:text-white"
+                    className="group flex items-center justify-between border-b border-[var(--border)] py-4 text-[17px] font-medium text-[var(--foreground)]/90 transition-colors hover:text-[var(--foreground)]"
                   >
                     <span className="flex items-center gap-3">
-                      <span className="text-[10px] tracking-[0.16em] text-blue-400/70">
+                      <span className="font-mono text-[10px] tracking-[0.16em] text-[var(--accent)]/80">
                         0{index + 1}
                       </span>
-
                       {item.label}
                     </span>
-
                     <ArrowUpRight
                       size={16}
-                      className="text-zinc-700 transition group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-blue-300"
+                      className="text-[var(--muted-2)] transition group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-[var(--accent)]"
                     />
                   </Link>
                 ))}
@@ -319,20 +225,20 @@ export default function Navbar() {
                 href="/cv-miler-castro.pdf"
                 download
                 onClick={() => setOpen(false)}
-                className="mt-6 flex h-12 items-center justify-between rounded-xl border border-white/[0.08] bg-white/[0.035] px-4 text-sm font-semibold text-zinc-200 transition hover:border-blue-400/25 hover:bg-blue-500/[0.08] hover:text-white"
+                className="focus-ring mt-6 flex h-12 items-center justify-between rounded-[var(--radius-md)] border border-[var(--border-strong)] bg-white/[0.03] px-4 text-sm font-medium text-[var(--foreground)] transition hover:border-[var(--accent)]/40"
               >
                 <span>Descargar CV</span>
-
-                <Download size={17} strokeWidth={2} className="text-blue-300" />
+                <Download size={16} className="text-[var(--accent)]" />
               </a>
 
-              <div className="mt-auto border-t border-white/[0.07] pt-5">
-                <div className="flex items-center gap-2 text-xs text-emerald-400">
-                  <span className="h-2 w-2 rounded-full bg-emerald-400" />
+              <div className="mt-auto border-t border-[var(--border)] pt-5">
+                <div className="flex items-center gap-2 font-mono text-[11px] text-[var(--accent)]">
+                  <span className="h-1.5 w-1.5 rounded-full bg-[var(--accent)]" />
                   Disponible para oportunidades
                 </div>
-
-                <p className="mt-2 text-sm text-zinc-500">Chimbote, Perú</p>
+                <p className="mt-2 text-sm text-[var(--muted)]">
+                  {siteConfig.location}
+                </p>
               </div>
             </motion.div>
           </motion.div>

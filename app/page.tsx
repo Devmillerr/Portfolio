@@ -1,5 +1,6 @@
 import Footer from "@/components/layout/Footer";
 import Navbar from "@/components/layout/Navbar";
+import SectionRail from "@/components/layout/SectionRail";
 
 import Hero from "@/components/hero/Hero";
 
@@ -13,8 +14,9 @@ export default function Home() {
   return (
     <>
       <Navbar />
+      <SectionRail />
 
-      <main>
+      <main id="main">
         <Hero />
         <Profile />
         <CaseStudy />

@@ -2,28 +2,26 @@ import { Mail } from "lucide-react";
 import Image from "next/image";
 import { FaGithub, FaLinkedinIn, FaWhatsapp } from "react-icons/fa";
 
+import IconLink from "@/components/ui/IconLink";
+import { siteConfig } from "@/lib/constants";
+
 const socialLinks = [
   {
     label: "Correo",
-    href: "mailto:castrojordy378@gmail.com",
+    href: `mailto:${siteConfig.email}`,
     icon: Mail,
     external: false,
   },
-  {
-    label: "GitHub",
-    href: "https://github.com/Devmillerr",
-    icon: FaGithub,
-    external: true,
-  },
+  { label: "GitHub", href: siteConfig.github, icon: FaGithub, external: true },
   {
     label: "LinkedIn",
-    href: "https://www.linkedin.com/in/devmillerr/",
+    href: siteConfig.linkedin,
     icon: FaLinkedinIn,
     external: true,
   },
   {
     label: "WhatsApp",
-    href: "https://wa.me/51937195838",
+    href: siteConfig.whatsapp,
     icon: FaWhatsapp,
     external: true,
   },
@@ -31,123 +29,48 @@ const socialLinks = [
 
 export default function Footer() {
   return (
-    <footer className="relative border-t border-white/[0.07] bg-[#08090c] text-white">
-      {/* Línea superior */}
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-blue-400/20 to-transparent" />
-
-      <div
-        className="
-          mx-auto
-          flex
-          w-full
-          max-w-[1180px]
-          flex-col
-          gap-6
-          px-5
-          py-8
-          sm:px-8
-          md:flex-row
-          md:items-center
-          md:justify-between
-          lg:px-10
-        "
-      >
-        {/* Marca */}
+    <footer className="relative border-t border-[var(--border)] bg-[var(--background)] text-[var(--foreground)]">
+      <div className="mx-auto flex w-full max-w-[1180px] flex-col gap-6 px-5 py-8 sm:px-8 md:flex-row md:items-center md:justify-between lg:px-10">
         <a
           href="#hero"
           aria-label="Volver al inicio"
-          className="
-            group
-            inline-flex
-            w-fit
-            items-center
-            gap-3
-          "
+          className="group inline-flex w-fit items-center gap-3"
         >
-          <span
-            className="
-              flex
-              h-9
-              w-9
-              items-center
-              justify-center
-              rounded-xl
-              border
-              border-white/[0.08]
-              bg-white/[0.025]
-              text-xs
-              font-black
-              text-white
-              transition-all
-              duration-300
-              group-hover:border-blue-400/30
-              group-hover:bg-blue-500/[0.07]
-              group-hover:text-blue-300
-            "
-          >
+          <span className="flex h-9 w-9 items-center justify-center rounded-[10px] border border-[var(--border-strong)] bg-[var(--panel)] transition-colors duration-200 group-hover:border-[var(--accent)]/45">
             <Image
-              src="/favicon-mc.png"
+              src="/icon.png"
               alt=""
-              width={34}
-              height={34}
-              priority
-              className="relative z-10 h-[34px] w-[34px] object-contain"
+              width={26}
+              height={26}
+              className="h-[24px] w-[24px] object-contain"
             />
           </span>
-
-          <span className="text-sm font-bold tracking-[-0.02em] text-zinc-200 transition-colors duration-300 group-hover:text-white">
-            Devmillerr
+          <span className="font-mono text-[13px] text-[var(--muted)] transition-colors duration-200 group-hover:text-[var(--foreground)]">
+            {siteConfig.handle}
           </span>
         </a>
 
-        {/* Redes */}
         <div className="flex items-center gap-2">
           {socialLinks.map((item) => {
             const Icon = item.icon;
-
             return (
-              <a
+              <IconLink
                 key={item.label}
                 href={item.href}
-                target={item.external ? "_blank" : undefined}
-                rel={item.external ? "noreferrer" : undefined}
-                aria-label={item.label}
-                title={item.label}
-                className="
-                  group
-                  flex
-                  h-10
-                  w-10
-                  items-center
-                  justify-center
-                  rounded-xl
-                  border
-                  border-white/[0.08]
-                  bg-white/[0.018]
-                  text-zinc-500
-                  transition-all
-                  duration-300
-                  hover:-translate-y-1
-                  hover:border-blue-400/30
-                  hover:bg-blue-500/[0.065]
-                  hover:text-blue-300
-                  hover:shadow-[0_8px_25px_rgba(59,130,246,0.1)]
-                "
+                label={item.label}
+                external={item.external}
+                className="h-10 w-10"
               >
-                <Icon
-                  size={16}
-                  className="transition-transform duration-300 group-hover:scale-110"
-                />
-              </a>
+                <Icon size={15} />
+              </IconLink>
             );
           })}
         </div>
 
-        {/* Copyright */}
-        <p className="text-[11px] text-zinc-600 md:text-right">
-          © {new Date().getFullYear()} Miler Castro
-          <span className="mx-2 text-zinc-800">·</span>
-          Chimbote, Perú
+        <p className="font-mono text-[11px] text-[var(--muted-2)] md:text-right">
+          © {new Date().getFullYear()} {siteConfig.name}
+          <span className="mx-2 text-[var(--border-strong)]">·</span>
+          {siteConfig.location}
         </p>
       </div>
     </footer>
